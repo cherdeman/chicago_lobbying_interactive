@@ -1,0 +1,115 @@
+---
+title: "data processing"
+author: "Claire Herdeman"
+date: "2/17/2019"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+---
+
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(stringr)
+library(magrittr)
+library(scales)
+library(here)
+library(readxl)
+library(zoo)
+library(ggrepel)
+library(RColorBrewer)
+library(extrafont)
+library(ggalluvial)
+library(ggwordcloud)
+library(sf)
+library(ggmap)
+library(tigris)
+library(GGally)
+library(cowplot)
+library(data.tree)
+library(rjson)
+source("utils.R")
+source("load.R")
+source("aesthetics.R")
+```
+
+
+```{r}
+alderman_contributions <- contribution %>% 
+  mutate(ALDERMAN = "") %>%
+  mutate(ALDERMAN = if_else(str_detect(RECIPIENT, 'ARENA'), 'ARENA', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'AUSTIN'), 'AUSTIN', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'BEALE'), 'BEALE', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'BROOKINS'), 'BROOKINS', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'BURKE'), 'BURKE', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'BURNETT'), 'BURNETT', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'CAPPLEMAN'), 'CAPPLEMAN', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'CARDENAS'), 'CARDENAS', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'COCHRAN'), 'COCHRAN', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'CURTIS'), 'CURTIS', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'DOWELL'), 'DOWELL', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'EMANUEL'), 'EMANUEL', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'ERVIN'), 'ERVIN', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'FOULKES'), 'FOULKES', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'HAIRSTON'), 'HAIRSTON', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'HARRIS'), 'HARRIS', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'HOPKINS'), 'HOPKINS', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'KING'), 'KING', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'LAURINO'), 'LAURINO', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'LOPEZ'), 'LOPEZ', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'MALDONADO'), 'MALDONADO', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'MELL'), 'MELL', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'MITCHELL'), 'MITCHELL', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'MITTS'), 'MITTS', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'JOE MOORE'), 'JOE MOORE', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'DAVID MOORE'), 'DAVID MOORE', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'MORENO'), 'MORENO', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'MUNOZ'), 'MUNOZ', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'NAPOLITANO'), 'NAPOLITANO', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, "O'CONNOR"), "O'CONNOR", ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, "O'SHEA"), "O'SHEA", ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'OSTERMAN'), 'OSTERMAN', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'PAWAR'), 'PAWAR', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'QUINN'), 'QUINN', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'RAMIREZ'), 'RAMIREZ', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'REBOYRAS'), 'REBOYRAS', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'REILLY'), 'REILLY', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'SADLOWSKI'), 'SADLOWSKI', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'SANTIAGO'), 'SANTIAGO', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'SAWYER'), 'SAWYER', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'SCOTT'), 'SCOTT', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'SILVERSTEIN'), 'SILVERSTEIN', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'SMITH'), 'SMITH', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'SOLIS'), 'SOLIS', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'SPOSATO'), 'SPOSATO', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'TABARES'), 'TABARES', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'TALIAFERRO'), 'TALIAFERRO', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'THOMPSON'), 'THOMPSON', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'TUNNEY'), 'TUNNEY', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'VALENCIA'), 'VALENCIA', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'VILLEGAS'), 'VILLEGAS', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'WAGUESPACK'), 'WAGUESPACK', ALDERMAN),
+         ALDERMAN = if_else(str_detect(RECIPIENT, 'ZALEWSKI'), 'ZALEWSKI', ALDERMAN)
+         ) %>% 
+  filter(ALDERMAN != "" & ALDERMAN != "EMANUEL" & ALDERMAN != "VALENCIA")
+
+ald_contrib_2018 <- alderman_contributions %>% filter(PERIOD_START > as.Date('2017-12-31') & PERIOD_START < as.Date('2019-01-01')) %>% group_by(ALDERMAN, LOBBYIST_NAME) %>% summarise(cont_to_aldermen = sum(AMOUNT)) 
+
+comp_2018 <- compensation %>% filter(PERIOD_START > as.Date('2017-12-31') & PERIOD_START < as.Date('2019-01-01')) %>% group_by(LOBBYIST_NAME, CLIENT_NAME) %>% summarise(total_comp = sum(COMPENSATION_AMOUNT))
+
+web <- ald_contrib_2018 %>% inner_join(comp_2018, by = "LOBBYIST_NAME")
+web$pathString <- paste(web$ALDERMAN, 
+                        web$LOBBYIST_NAME, 
+                        web$CLIENT_NAME, 
+                        sep = "/")
+look <- as.Node(web)
+print(look, "cont_to_aldermen", "total_comp")
+a <- jsonlite::toJSON(as.list(look), force = TRUE)
+write(a, here("interactive", "alc.json"))
+write.csv(web, here("interactive", "alc.csv"))
+```
