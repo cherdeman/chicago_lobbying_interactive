@@ -19,24 +19,24 @@ svg {
 }
 
 #map {
-  width: 800px;
-  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid black;
 }
 
 .map {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   border: solid black;
-  width: 100%;
-  height: 100%;
 }
 
 .tree {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: black;
+  justify-content: start;
+  border: solid black;
   fill: gray;
   stroke: blue;
 }
@@ -46,7 +46,6 @@ svg {
   stroke: #ccc;
   stroke-width: 2px;
 }
-
 
 .text {
 	fill: black;
