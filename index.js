@@ -111,6 +111,7 @@ function treeVis(data) {
     // Add labels for the nodes
     // Add updates here for the $ amounts coming in, out
     nodeEnter.append('text')
+        .attr("class", "text")
         .attr("dy", ".35em")
         .attr("x", function(d) {
             return d.children || d._children ? -13 : 13;

@@ -49,6 +49,7 @@ svg {
 
 .text {
 	fill: black;
+	stroke: black;
 	font-family: sans-serif;
 }
 
