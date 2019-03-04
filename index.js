@@ -121,6 +121,28 @@ function treeVis(data) {
         })
         .text(function(d) { return d.data.name; });
 
+    nodeEnter.append('text')
+        .attr("class", "text")
+        .attr("dy", "1.35em")
+        .attr("x", function(d) {
+            return d.children || d._children ? -13 : 13;
+        })
+        .attr("text-anchor", function(d) {
+            return d.children || d._children ? "end" : "start";
+        })
+        .text(function(d) { return "Received: $"+d.data.in; });
+
+    nodeEnter.append('text')
+        .attr("class", "text")
+        .attr("dy", "2.35em")
+        .attr("x", function(d) {
+            return d.children || d._children ? -13 : 13;
+        })
+        .attr("text-anchor", function(d) {
+            return d.children || d._children ? "end" : "start";
+        })
+        .text(function(d) { return "Paid: $"+d.data.out; });
+
     // UPDATE
     var nodeUpdate = nodeEnter.merge(node);
 
