@@ -1,22 +1,21 @@
 /* global d3 */
 
-document.addEventListener('DOMContentLoaded', () => {
-  fetch('./ward_boundaries.geojson')
+function data_input(string, callback) {
+  fetch(string)
     .then(data => data.json())
     .catch(error => console.error(error))
     .then(data => {
-      mapVis(data)
+      callback(data)
     })
-});
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('./test.json')
-    .then(data => data.json())
-    .catch(error => console.error(error))
-    .then(data => {
-      treeVis(data)
-    })
+  data_input('./ward_boundaries.geojson', mapVis)
+  data_input('./alc.json', function(data) {
+    treeVis({children:data}) 
+  })
 });
+
 
 function mapVis(data) {
   console.log('mapviz')
@@ -26,6 +25,40 @@ function mapVis(data) {
   const map = new L.Map("map", {center: [41.84, -87.73], zoom: 11})
     .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
   L.geoJSON(data).addTo(map);
+
+  var geojson;
+  geojson = L.geoJSON(data);
+
+  function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+  }
+
+  function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+  }
+
+  function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+    });
+  }
+
+  geojson = L.geoJSON(data, {
+      onEachFeature: onEachFeature
+  }).addTo(map);
+
 
 }
 
@@ -106,6 +139,9 @@ function treeVis(data) {
         .attr('r', 1e-6)
         .style("fill", function(d) {
             return d._children ? "lightsteelblue" : "#fff";
+        })
+        .style("opacity", function(d){
+          return !d.depth ? 0 : 1;
         });
 
     // Add labels for the nodes
@@ -190,6 +226,9 @@ function treeVis(data) {
         .attr('d', function(d){
           var o = {x: source.x0, y: source.y0}
           return diagonal(o, o)
+        })
+        .style("opacity", function(d){
+            return !d.source.depth ? 0 : 1;
         });
 
     // UPDATE
