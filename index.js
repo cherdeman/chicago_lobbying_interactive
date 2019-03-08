@@ -21,22 +21,42 @@ function mapVis(data) {
   console.log('mapviz')
   console.log(data)
 
-  // create svg
   const map = new L.Map("map", {center: [41.84, -87.73], zoom: 11})
-    .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
-  L.geoJSON(data).addTo(map);
+    .addLayer(new L.TileLayer("http://a.tile.stamen.com/toner/{z}/{x}/{y}.png"));
+
+
+  L.geoJSON(data, {style: style}).addTo(map);
 
   var geojson;
-  geojson = L.geoJSON(data);
+  //geojson = L.geoJSON(data, {style: style});
+
+  function getColor(d) {
+    return d > 19999  ? '#08519c' :
+           d > 9999  ? '#3182bd' :
+           d > 4999   ? '#6baed6' :
+           d > 1999   ? '#bdd7e7' :
+           d > 0      ? '#eff3ff' :
+                        '#A6A6A6';
+  }
+
+  function style(feature) {
+    return {
+        weight: 1,
+        opacity: 1,
+        color: 'black',
+        fillColor: getColor(feature.properties.total),
+        fillOpacity: 1
+    };
+  }
 
   function highlightFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
-        weight: 5,
-        color: '#666',
-        dashArray: '',
-        fillOpacity: 0.7
+        weight: 1,
+        fillColor: '#CB2314',
+        color: 'white',
+        fillOpacity: 1
     });
 
     info.update(layer.feature.properties);
@@ -60,6 +80,7 @@ function mapVis(data) {
   }
 
   geojson = L.geoJSON(data, {
+      style: style,
       onEachFeature: onEachFeature
   }).addTo(map);
   
@@ -76,7 +97,7 @@ function mapVis(data) {
       this._div.innerHTML = (data ?
           '<b>Ward: ' + data.ward + '</b><br/>' +
           '<b>Alderman: ' + data.alderman+ '</b><br/>'+
-          '<b>Contributions from Lobbyists (2018): $' + data.total + '</b>'
+          '<b>Lobbyists Contributions (2018): $' + data.total + '</b>'
           : 'Hover map to see ward information');
   };
 
