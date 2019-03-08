@@ -10,8 +10,8 @@ function data_input(string, callback) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  data_input('./ward_boundaries.geojson', mapVis)
-  data_input('./alc.json', function(data) {
+  data_input('./data/ward_boundaries_update.geojson', mapVis)
+  data_input('./data/alc.json', function(data) {
     treeVis({children:data}) 
   })
 });
@@ -39,6 +39,8 @@ function mapVis(data) {
         fillOpacity: 0.7
     });
 
+    info.update(layer.feature.properties);
+
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
     }
@@ -46,6 +48,8 @@ function mapVis(data) {
 
   function resetHighlight(e) {
     geojson.resetStyle(e.target);
+
+    info.update();
   }
 
   function onEachFeature(feature, layer) {
@@ -58,7 +62,25 @@ function mapVis(data) {
   geojson = L.geoJSON(data, {
       onEachFeature: onEachFeature
   }).addTo(map);
+  
+  var info = L.control();
 
+  info.onAdd = function (map) {
+      this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+      this.update();
+      return this._div;
+  };
+
+  // method that we will use to update the control based on feature properties passed
+  info.update = function (data) {
+      this._div.innerHTML = (data ?
+          '<b>Ward: ' + data.ward + '</b><br/>' +
+          '<b>Alderman: ' + data.alderman+ '</b><br/>'+
+          '<b>Contributions from Lobbyists (2018): $' + data.total + '</b>'
+          : 'Hover map to see ward information');
+  };
+
+  info.addTo(map);
 
 }
 
@@ -147,37 +169,46 @@ function treeVis(data) {
     // Add labels for the nodes
     // Add updates here for the $ amounts coming in, out
     nodeEnter.append('text')
-        .attr("class", "text")
-        .attr("dy", ".35em")
-        .attr("x", function(d) {
-            return d.children || d._children ? -13 : 13;
-        })
-        .attr("text-anchor", function(d) {
-            return d.children || d._children ? "end" : "start";
-        })
-        .text(function(d) { return d.data.name; });
+              .attr("class", "text")
+              .attr("dy", ".35em")
+              .attr("x", function(d) {
+                  return d.children || d._children ? -13 : 13;
+              })
+              .attr("text-anchor", function(d) {
+                  return d.children || d._children ? "end" : "start";
+              })
+              .text(function(d) { return d.data.name; })
+              .style("opacity", function(d){
+                return !d.depth ? 0 : 1;
+              });
 
     nodeEnter.append('text')
-        .attr("class", "text")
-        .attr("dy", "1.35em")
-        .attr("x", function(d) {
-            return d.children || d._children ? -13 : 13;
-        })
-        .attr("text-anchor", function(d) {
-            return d.children || d._children ? "end" : "start";
-        })
-        .text(function(d) { return "Received: $"+d.data.in; });
+              .attr("class", "text")
+              .attr("dy", "1.35em")
+              .attr("x", function(d) {
+                  return d.children || d._children ? -13 : 13;
+              })
+              .attr("text-anchor", function(d) {
+                  return d.children || d._children ? "end" : "start";
+              })
+              .text(function(d) { return "Received: $"+d.data.in; })
+              .style("opacity", function(d){
+                return !d.depth ? 0 : 1;
+              });
 
     nodeEnter.append('text')
-        .attr("class", "text")
-        .attr("dy", "2.35em")
-        .attr("x", function(d) {
-            return d.children || d._children ? -13 : 13;
-        })
-        .attr("text-anchor", function(d) {
-            return d.children || d._children ? "end" : "start";
-        })
-        .text(function(d) { return "Paid: $"+d.data.out; });
+              .attr("class", "text")
+              .attr("dy", "2.35em")
+              .attr("x", function(d) {
+                  return d.children || d._children ? -13 : 13;
+              })
+              .attr("text-anchor", function(d) {
+                  return d.children || d._children ? "end" : "start";
+              })
+              .text(function(d) { return "Paid: $"+d.data.out; })
+              .style("opacity", function(d){
+                return !d.depth ? 0 : 1;
+              });
 
     // UPDATE
     var nodeUpdate = nodeEnter.merge(node);
@@ -227,8 +258,11 @@ function treeVis(data) {
           var o = {x: source.x0, y: source.y0}
           return diagonal(o, o)
         })
-        .style("opacity", function(d){
-            return !d.source.depth ? 0 : 1;
+        .style("opacity", function(d, i) {
+            return !source.depth ? 0 : 1;
+        })
+        .style("pointer-events", function(d, i) {
+            return source.depth ? "none" : "all";
         });
 
     // UPDATE
