@@ -96,7 +96,11 @@ alderman_contributions <- contribution %>%
          ALDERMAN = if_else(str_detect(RECIPIENT, 'WAGUESPACK'), 'SCOTT WAGUESPACK', ALDERMAN),
          ALDERMAN = if_else(str_detect(RECIPIENT, 'ZALEWSKI'), 'MICHAEL ZALEWSKI', ALDERMAN)
          ) %>% 
-  filter(ALDERMAN != "" & ALDERMAN != "EMANUEL" & ALDERMAN != "VALENCIA")
+  filter(ALDERMAN != "" & ALDERMAN != "EMANUEL" & ALDERMAN != "ANNA VALENCIA")
+
+ald_totals <- alderman_contributions %>% filter(CONTRIBUTION_DATE > as.Date('2017-12-31') & CONTRIBUTION_DATE < as.Date('2019-01-01')) %>% group_by(ALDERMAN) %>% summarise(total = sum(AMOUNT))
+
+ald_totals %<>% right_join(council, by = "ALDERMAN") %>% select(ALDERMAN, total, Ward)
 
 ald_contrib_2018 <- alderman_contributions %>% filter(PERIOD_START > as.Date('2017-12-31') & PERIOD_START < as.Date('2019-01-01')) %>% group_by(ALDERMAN, LOBBYIST_NAME) %>% summarise(cont_to_aldermen = sum(AMOUNT)) 
 
@@ -110,11 +114,17 @@ web$pathString <- paste(web$ALDERMAN,
 look <- as.Node(web)
 print(look, "cont_to_aldermen", "total_comp")
 a <- jsonlite::toJSON(as.list(look), force = TRUE)
-write(a, here("interactive", "alc.json"))
-write.csv(web, here("interactive", "alc.csv"))
+write(a, here("data", "alc.json"))
+write.csv(web, here("data", "alc.csv"))
 ```
 
 ```{r}
 alderman_contributions
-ward_boundaries$features
+ward_boundaries$features$properties %<>% inner_join(ald_totals %>% 
+                                           rename(ward = Ward,
+                                                  alderman = ALDERMAN,
+                                                 total = total) %>%
+                                             mutate(ward = as.character(ward)), by = "ward")
+ward_boundaries
+write(toJSON(ward_boundaries), here("data", "ward_boundaries_update.geojson"))
 ```

@@ -11,7 +11,7 @@ function data_input(string, callback) {
 
 document.addEventListener('DOMContentLoaded', () => {
   data_input('./data/ward_boundaries_update.geojson', mapVis)
-  data_input('./data/alc.json', function(data) {
+  data_input('./data/alc2.json', function(data) {
     treeVis({children:data}) 
   })
 });
@@ -21,7 +21,7 @@ function mapVis(data) {
   console.log('mapviz')
   console.log(data)
 
-  const map = new L.Map("map", {center: [41.84, -87.73], zoom: 11})
+  const map = new L.Map("map", {center: [41.84, -87.73], zoom: 10})
     .addLayer(new L.TileLayer("http://a.tile.stamen.com/toner/{z}/{x}/{y}.png"));
 
 
@@ -45,7 +45,7 @@ function mapVis(data) {
         opacity: 1,
         color: 'black',
         fillColor: getColor(feature.properties.total),
-        fillOpacity: 1
+        fillOpacity: 0.8
     };
   }
 
@@ -109,12 +109,12 @@ function treeVis(data) {
   console.log('treeviz')
   console.log(data)
   // plot configurations
-  const height = 1000;
+  const height = 1200;
   const width = 1000;
   const margin = {top: 50, left: 130, right: 50, bottom: 50};
 
   const plotWidth = width - margin.left - margin.right
-  const plotHeight = width - margin.top - margin.bottom
+  const plotHeight = height - margin.top - margin.bottom
 
   const svg = d3.select(".tree").append("svg")
     .attr("width", width)
@@ -160,7 +160,7 @@ function treeVis(data) {
         links = treeData.descendants().slice(1);
 
     // Normalize for fixed-depth.
-    nodes.forEach(function(d){ d.y = d.depth * 180});
+    nodes.forEach(function(d){ d.y = d.depth * 150});
 
     // ****************** Nodes section ***************************
 
@@ -168,7 +168,7 @@ function treeVis(data) {
     var node = svg.selectAll('g.node')
         .data(nodes, function(d) {return d.id || (d.id = ++i); });
 
-    // Enter any new modes at the parent's previous position.
+    // Enter any new nodes at the parent's previous position.
     var nodeEnter = node.enter().append('g')
         .attr('class', 'node')
         .attr("transform", function(d) {
@@ -178,10 +178,36 @@ function treeVis(data) {
 
     // Add Circle for the nodes
     nodeEnter.append('circle')
-        .attr('class', 'node')
-        .attr('r', 1e-6)
+        .attr('class', function(d) { //'node')
+          if (d.depth === 1) {
+            return 'node alderman'
+          } else if (d.depth === 2) {
+            return 'node lobbyist'
+          }
+          else {
+            return 'node client'
+          }
+        })
+        .attr('r', 0)
+        .style('stroke', function(d) {
+          if (d.depth === 1) {
+            return "#357623"
+          } else if (d.depth ===2) {
+            return "#2F1554"
+          }
+          else {
+            return "#F98400"
+          }
+        })
         .style("fill", function(d) {
-            return d._children ? "lightsteelblue" : "#fff";
+          if (d.depth === 1) {
+            return "#6EB643"
+          } else if (d.depth ===2) {
+            return "#576B9C"
+          }
+          else {
+            return "#F2AD00"
+          }
         })
         .style("opacity", function(d){
           return !d.depth ? 0 : 1;
@@ -203,33 +229,33 @@ function treeVis(data) {
                 return !d.depth ? 0 : 1;
               });
 
-    nodeEnter.append('text')
-              .attr("class", "text")
-              .attr("dy", "1.35em")
-              .attr("x", function(d) {
-                  return d.children || d._children ? -13 : 13;
-              })
-              .attr("text-anchor", function(d) {
-                  return d.children || d._children ? "end" : "start";
-              })
-              .text(function(d) { return "Received: $"+d.data.in; })
-              .style("opacity", function(d){
-                return !d.depth ? 0 : 1;
-              });
+    // nodeEnter.append('text')
+    //           .attr("class", "text")
+    //           .attr("dy", "1.35em")
+    //           .attr("x", function(d) {
+    //               return d.children || d._children ? -13 : 13;
+    //           })
+    //           .attr("text-anchor", function(d) {
+    //               return d.children || d._children ? "end" : "start";
+    //           })
+    //           .text(function(d) { return "Received: $"+d.data.in; })
+    //           .style("opacity", function(d){
+    //             return d.depth > 1 ? 0 : 1;
+    //           });
 
-    nodeEnter.append('text')
-              .attr("class", "text")
-              .attr("dy", "2.35em")
-              .attr("x", function(d) {
-                  return d.children || d._children ? -13 : 13;
-              })
-              .attr("text-anchor", function(d) {
-                  return d.children || d._children ? "end" : "start";
-              })
-              .text(function(d) { return "Paid: $"+d.data.out; })
-              .style("opacity", function(d){
-                return !d.depth ? 0 : 1;
-              });
+    // nodeEnter.append('text')
+    //           .attr("class", "text")
+    //           .attr("dy", "2.35em")
+    //           .attr("x", function(d) {
+    //               return d.children || d._children ? -13 : 13;
+    //           })
+    //           .attr("text-anchor", function(d) {
+    //               return d.children || d._children ? "end" : "start";
+    //           })
+    //           .text(function(d) { return "Paid: $"+d.data.out; })
+    //           .style("opacity", function(d){
+    //             return !d.depth ? 0 : 1;
+    //           });
 
     // UPDATE
     var nodeUpdate = nodeEnter.merge(node);
@@ -245,7 +271,14 @@ function treeVis(data) {
     nodeUpdate.select('circle.node')
       .attr('r', 10)
       .style("fill", function(d) {
-          return d._children ? "lightsteelblue" : "#fff";
+          if (d.depth === 1) {
+            return "#6EB643"
+          } else if (d.depth ===2) {
+            return "#576B9C"
+          }
+          else {
+            return "#F2AD00"
+          }
       })
       .attr('cursor', 'pointer');
 
@@ -260,13 +293,13 @@ function treeVis(data) {
 
     // On exit reduce the node circles size to 0
     nodeExit.select('circle')
-      .attr('r', 1e-6);
+      .attr('r', 0);
 
     // On exit reduce the opacity of text labels
     nodeExit.select('text')
-      .style('fill-opacity', 1e-6);
+      .style('fill-opacity', 0);
 
-    // ****************** links section ***************************
+    // LINKS
 
     // Update the links...
     var link = svg.selectAll('path.link')

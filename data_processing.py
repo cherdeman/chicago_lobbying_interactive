@@ -1,7 +1,7 @@
 import csv
 import json
 
-with open('alc.csv') as f:
+with open('data/alc.csv') as f:
     readCSV = csv.reader(f, delimiter=',')
     next(readCSV, None)
     results = []
@@ -70,72 +70,9 @@ with open('alc.csv') as f:
         old_lob_name = lob_name
 
 
-    with open('alc.json', 'w') as outfile:
+    with open('data/alc2.json', 'w') as outfile:
         json.dump(results, outfile)
 
-    with open('test.json', 'w') as outfile:
+    with open('data/test2.json', 'w') as outfile:
         json.dump(results[10], outfile)
 
-
-
-
-
-
-
-
-        if name != old_name:
-            ald = {}
-            ald["name"] = name
-            ald["out"] = None
-            ald["in"] = row[3]
-            ald["children"] = []
-            lob_name = row[2]
-            lob["name"] = lob_name
-            lob["in"] = row[5]
-            lob["out"] = row[3]
-            lob["children"] = []
-            lob["children"].append(client)
-            if lob_name != old_lob_name:
-                lob = {}
-                lob["name"] = lob_name
-                lob["in"] = row[5]
-                lob["out"] = row[3]
-                lob["children"] = []
-                client = {}
-                client["name"] = row[4]
-                client["out"] = row[5]
-                lob["children"].append(client)
-            else:
-                client = {}
-                client["name"] = row[4]
-                client["out"] = row[5]
-                lob["children"].append(client)
-            old_lob_name = lob_name
-            ald["children"].append(lob)
-        else:
-            lob_name = row[2]
-            lob["name"] = lob_name
-            lob["in"] = row[5]
-            lob["out"] = row[3]
-            lob["children"] = []
-            lob["children"].append(client)
-            if lob_name != old_lob_name:
-                lob = {}
-                lob["name"] = lob_name
-                lob["in"] = row[5]
-                lob["out"] = row[3]
-                lob["children"] = []
-                client = {}
-                client["name"] = row[4]
-                client["out"] = row[5]
-                lob["children"].append(client)
-            else:
-                client = {}
-                client["name"] = row[4]
-                client["out"] = row[5]
-                lob["children"].append(client)
-            old_lob_name = lob_name
-            ald["children"].append(lob)
-        
-        results.append(ald)
-                
