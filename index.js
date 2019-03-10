@@ -128,8 +128,6 @@ function treeVis(data) {
                        lobbyist:{stroke:"#2F1554", fill:"#576B9C"}, 
                        client:{stroke:"#F98400", fill:"#F2AD00"}
                       }
-  console.log("color")
-  console.log(colorLookup["alderman"]["stroke"])
 
   //Legend
   svg.append("circle")
@@ -192,6 +190,15 @@ function treeVis(data) {
      .attr("text-anchor", "right")
      .style("font-size", "10px")
      .text("Clients");
+
+  // attribution
+  svg.append("text")
+      .attr("class", "text")
+      .attr("x", -85)             
+      .attr("y", height - 75)
+      .attr("text-anchor", "start")
+      .style("font-size", "12px")
+      .text("Source: City of Chicago Lobbying Data, Compensation and Contributions");
 
   
   
@@ -436,8 +443,6 @@ function treeVis(data) {
     // On click toggle children, if alderman, remove other nodes
     function click(d) {
       if (d.depth === 1) {
-        console.log("here")
-        console.log(this)
         if (d3.select(this).select(".alderman").classed("active") === false) {
           d3.select(this).selectAll(".alderman").classed("active", true) //ed("active", true)
 
