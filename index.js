@@ -32,7 +32,7 @@ function mapVis(data) {
 
   function getColor(d) {
     return d > 19999  ? '#08519c' :
-           d > 9999  ? '#3182bd' :
+           d > 9999   ? '#3182bd' :
            d > 4999   ? '#6baed6' :
            d > 1999   ? '#bdd7e7' :
            d > 0      ? '#eff3ff' :
@@ -178,7 +178,7 @@ function treeVis(data) {
 
     // Add Circle for the nodes
     nodeEnter.append('circle')
-        .attr('class', function(d) { //'node')
+        .attr('class', function(d) {
           if (d.depth === 1) {
             return 'node alderman'
           } else if (d.depth === 2) {
@@ -192,7 +192,7 @@ function treeVis(data) {
         .style('stroke', function(d) {
           if (d.depth === 1) {
             return "#357623"
-          } else if (d.depth ===2) {
+          } else if (d.depth === 2) {
             return "#2F1554"
           }
           else {
@@ -202,7 +202,7 @@ function treeVis(data) {
         .style("fill", function(d) {
           if (d.depth === 1) {
             return "#6EB643"
-          } else if (d.depth ===2) {
+          } else if (d.depth === 2) {
             return "#576B9C"
           }
           else {
@@ -353,8 +353,32 @@ function treeVis(data) {
       return path
     }
 
-    // Toggle children on click.
+    // On click toggle children, if alderman, remove other nodes
     function click(d) {
+      if (d.depth === 1) {
+        if (d3.select(this).classed("active") === false) {
+          d3.select(this).classed("active", true)
+
+          d3.selectAll(".alderman")
+            .transition()
+            .attr("fill-opacity", 0)
+            .attr("stroke-opacity", 0);
+
+          
+          d3.selectAll(".alderman.active")
+            .transition()
+            .attr("fill-opacity", 1);
+        }
+        else {
+          d3.select(this).classed("active", false);
+
+          d3.selectAll(".alderman")
+            .transition()
+            .attr("fill-opacity", 1)
+            .attr("stroke-opacity", 1);
+        }
+      }
+
       if (d.children) {
           d._children = d.children;
           d.children = null;
