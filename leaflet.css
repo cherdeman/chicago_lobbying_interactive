@@ -17,6 +17,7 @@ svg {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: solid red;
 }
 
 #map {
@@ -81,10 +82,15 @@ svg {
 }
 
 .text {
-	fill: gray;
-	stroke: gray;
+	fill: black;
+	stroke: black;
 	font-family: sans-serif;
 	font-size: 10pt;
+}
+
+.legend{
+	fill: black;
+	stroke: black;
 }
 
 /* required styles */

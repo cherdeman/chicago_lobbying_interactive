@@ -110,7 +110,7 @@ function treeVis(data) {
   console.log(data)
   // plot configurations
   const height = 1200;
-  const width = 1000;
+  const width = 1200;
   const margin = {top: 50, left: 130, right: 50, bottom: 50};
 
   const plotWidth = width - margin.left - margin.right
@@ -122,13 +122,85 @@ function treeVis(data) {
     .append("g")
     .attr("transform", "translate("
           + margin.left + "," + margin.top + ")");
+
+  // create color mapping
+  const colorLookup = {alderman:{stroke:"#357623", fill:"#6EB643"}, 
+                       lobbyist:{stroke:"#2F1554", fill:"#576B9C"}, 
+                       client:{stroke:"#F98400", fill:"#F2AD00"}
+                      }
+  console.log("color")
+  console.log(colorLookup["alderman"]["stroke"])
+
+  //Legend
+  svg.append("circle")
+     .attr('r', 10)
+     .attr("cx", -75)
+     .attr("cy", 0)
+     .style("stroke", colorLookup["alderman"]["stroke"])
+     .style("fill", colorLookup["alderman"]["fill"]);
+
+  svg.append("circle")
+     .attr('r', 10)
+     .attr("cx", -75)
+     .attr("cy", 25)
+     .style("stroke", colorLookup["lobbyist"]["stroke"])
+     .style("fill", colorLookup["lobbyist"]["fill"]);
+
+  svg.append("circle")
+     .attr('r', 10)
+     .attr("cx", -75)
+     .attr("cy", 50)
+     .style("stroke", colorLookup["client"]["stroke"])
+     .style("fill", colorLookup["client"]["fill"]);
+
+  svg.append("rect")
+     .attr("height", 80)
+     .attr("width", 100)
+     .attr("x", -90)
+     .attr("y", -15)
+     .style("stroke", "black")
+     .style("fill-opacity", 0);
+
+  svg.append("text")
+     .attr("class", "text legend")
+     .attr("x", -85)
+     .attr("y", -20)
+     .attr("text-anchor", "right")
+     .style("font-size", "14px")
+     .text("Node Legend");
+
+  svg.append("text")
+     .attr("class", "text legend")
+     .attr("x", -60)
+     .attr("y", 2)
+     .attr("text-anchor", "right")
+     .style("font-size", "10px")
+     .text("Aldermen");
+
+  svg.append("text")
+     .attr("class", "text legend")
+     .attr("x", -60)
+     .attr("y", 27)
+     .attr("text-anchor", "right")
+     .style("font-size", "10px")
+     .text("Lobbyists");
+
+  svg.append("text")
+     .attr("class", "text legend")
+     .attr("x", -60)
+     .attr("y", 52)
+     .attr("text-anchor", "right")
+     .style("font-size", "10px")
+     .text("Clients");
+
+  
   
   // Set transition duration
   var i = 0,
   duration = 750,
   root;
   
-  //
+  // set treemap size
   var treemap = d3.tree()
     .size([plotHeight, plotWidth]);
 
@@ -136,7 +208,6 @@ function treeVis(data) {
   root.x0 = width / 2 ;
   root.y0 = height / 2;
   
-
   root.children.forEach(collapse);
 
   update(root);
@@ -160,7 +231,7 @@ function treeVis(data) {
         links = treeData.descendants().slice(1);
 
     // Normalize for fixed-depth.
-    nodes.forEach(function(d){ d.y = d.depth * 150});
+    nodes.forEach(function(d){ d.y = d.depth * 220});
 
     // ****************** Nodes section ***************************
 
@@ -191,22 +262,22 @@ function treeVis(data) {
         .attr('r', 0)
         .style('stroke', function(d) {
           if (d.depth === 1) {
-            return "#357623"
+            return colorLookup["alderman"]["stroke"]
           } else if (d.depth === 2) {
-            return "#2F1554"
+            return colorLookup["lobbyist"]["stroke"]
           }
           else {
-            return "#F98400"
+            return colorLookup["client"]["stroke"]
           }
         })
         .style("fill", function(d) {
           if (d.depth === 1) {
-            return "#6EB643"
+            return colorLookup["alderman"]["fill"]
           } else if (d.depth === 2) {
-            return "#576B9C"
+            return colorLookup["lobbyist"]["fill"]
           }
           else {
-            return "#F2AD00"
+            return colorLookup["lobbyist"]["fill"]
           }
         })
         .style("opacity", function(d){
@@ -216,7 +287,16 @@ function treeVis(data) {
     // Add labels for the nodes
     // Add updates here for the $ amounts coming in, out
     nodeEnter.append('text')
-              .attr("class", "text")
+              .attr('class', function(d) {
+                    if (d.depth === 1) {
+                      return 'text alderman'
+                    } else if (d.depth === 2) {
+                      return 'text lobbyist'
+                    }
+                    else {
+                      return 'text client'
+                    }
+                  })
               .attr("dy", ".35em")
               .attr("x", function(d) {
                   return d.children || d._children ? -13 : 13;
@@ -356,26 +436,23 @@ function treeVis(data) {
     // On click toggle children, if alderman, remove other nodes
     function click(d) {
       if (d.depth === 1) {
-        if (d3.select(this).classed("active") === false) {
-          d3.select(this).classed("active", true) //ed("active", true)
+        console.log("here")
+        console.log(this)
+        if (d3.select(this).select(".alderman").classed("active") === false) {
+          d3.select(this).selectAll(".alderman").classed("active", true) //ed("active", true)
 
           d3.selectAll(".alderman")
-            .filter("active")
             .transition()
             .attr("fill-opacity", 0)
             .attr("stroke-opacity", 0);
 
-          // if (d3.select(this).classed("active") === true) {
-          //   console.log(d3.select(this).classed("active") === true)
-          //   console.log(d3.select(".node.alderman.active"))
-          //   d3.select(".node.alderman.active")
-          //   .transition()
-          //   .attr("fill-opacity", 1)
-          //   .attr("stroke-opacity", 1);
-          // } 
+          d3.selectAll(".active")
+          .transition()
+          .attr("fill-opacity", 1)
+          .attr("stroke-opacity", 1);
         }
         else {
-          d3.select(this).classed("active", false);
+          d3.select(this).selectAll(".alderman").classed("active", false);
 
           d3.selectAll(".alderman")
             .transition()
