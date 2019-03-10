@@ -133,21 +133,21 @@ function treeVis(data) {
   svg.append("circle")
      .attr('r', 10)
      .attr("cx", -75)
-     .attr("cy", 0)
+     .attr("cy", 20)
      .style("stroke", colorLookup["alderman"]["stroke"])
      .style("fill", colorLookup["alderman"]["fill"]);
 
   svg.append("circle")
      .attr('r', 10)
      .attr("cx", -75)
-     .attr("cy", 25)
+     .attr("cy", 45)
      .style("stroke", colorLookup["lobbyist"]["stroke"])
      .style("fill", colorLookup["lobbyist"]["fill"]);
 
   svg.append("circle")
      .attr('r', 10)
      .attr("cx", -75)
-     .attr("cy", 50)
+     .attr("cy", 70)
      .style("stroke", colorLookup["client"]["stroke"])
      .style("fill", colorLookup["client"]["fill"]);
 
@@ -155,14 +155,14 @@ function treeVis(data) {
      .attr("height", 80)
      .attr("width", 100)
      .attr("x", -90)
-     .attr("y", -15)
+     .attr("y", 5)
      .style("stroke", "black")
      .style("fill-opacity", 0);
 
   svg.append("text")
      .attr("class", "text legend")
      .attr("x", -85)
-     .attr("y", -20)
+     .attr("y", 0)
      .attr("text-anchor", "right")
      .style("font-size", "14px")
      .text("Node Legend");
@@ -170,7 +170,7 @@ function treeVis(data) {
   svg.append("text")
      .attr("class", "text legend")
      .attr("x", -60)
-     .attr("y", 2)
+     .attr("y", 22)
      .attr("text-anchor", "right")
      .style("font-size", "10px")
      .text("Aldermen");
@@ -178,7 +178,7 @@ function treeVis(data) {
   svg.append("text")
      .attr("class", "text legend")
      .attr("x", -60)
-     .attr("y", 27)
+     .attr("y", 47)
      .attr("text-anchor", "right")
      .style("font-size", "10px")
      .text("Lobbyists");
@@ -186,7 +186,7 @@ function treeVis(data) {
   svg.append("text")
      .attr("class", "text legend")
      .attr("x", -60)
-     .attr("y", 52)
+     .attr("y", 72)
      .attr("text-anchor", "right")
      .style("font-size", "10px")
      .text("Clients");
