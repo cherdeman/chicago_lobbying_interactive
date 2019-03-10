@@ -1,0 +1,413 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+
+</style>
+<!--[if gte mso 9]>
+
+<![endif]-->
+</head>
+<body>
+<table border="0" id="ctl00_ContentPlaceHolder1_gridPeople_ctl00" frame="void" style="width:100%;table-layout:auto;empty-cells:show;">
+	<colgroup>
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+		<col  />
+	</colgroup>
+<thead>
+		<tr>
+			<th scope="col" style="text-align:left;vertical-align:middle;">&nbsp;Person Name </th><th scope="col" style="text-align:left;vertical-align:middle;">Ward/Office</th><th scope="col" style="text-align:left;vertical-align:middle;">Ward Office Phone</th><th scope="col" style="text-align:left;vertical-align:middle;">Fax</th><th scope="col" style="text-align:left;vertical-align:middle;">E-mail</th><th scope="col" style="text-align:left;vertical-align:middle;">Web Site</th><th scope="col" style="text-align:left;vertical-align:middle;">Ward Office Address</th><th scope="col" style="text-align:left;vertical-align:middle;">City</th><th scope="col" style="text-align:left;vertical-align:middle;">State</th><th scope="col" style="text-align:left;vertical-align:middle;">Zip</th><th scope="col" style="text-align:left;vertical-align:middle;">City Hall Phone</th><th scope="col" style="text-align:left;vertical-align:middle;">City Hall Address</th><th scope="col" style="text-align:left;vertical-align:middle;">City</th><th scope="col" style="text-align:left;vertical-align:middle;">State</th><th scope="col" style="text-align:left;vertical-align:middle;">Zip</th>
+		</tr>
+	</thead><tbody>
+	<tr>
+		<td>
+                                                
+                                            Arena, John</td><td>45</td><td>(773) 286-4545</td><td>(773) 685-4527</td><td>
+                                                
+                                            Ward45@cityofchicago.org</td><td>http://ward45.org</td><td>4754 North Milwaukee Avenue</td><td>Chicago</td><td>IL</td><td>60630</td><td>(312) 744-6841 / 5684</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Austin, Carrie M.</td><td>34</td><td>(773) 928-6961</td><td>(773) 928-8562</td><td>
+                                                
+                                            Ward34@cityofchicago.org</td><td>http://committeeonthebudget.cityofchicago.org/index.html</td><td>507 West 111th Street
+</td><td>Chicago</td><td>IL</td><td>60628</td><td>(312)744-6820 / 6829</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Beale, Anthony</td><td>09</td><td>(773) 785-1100</td><td>(773) 785-2900</td><td>
+                                                
+                                            Ward09@cityofchicago.org</td><td>http://www.Ward09.com</td><td>34 East 112th Place
+
+</td><td>Chicago</td><td>IL</td><td>60628</td><td>(312) 744-6838 / 3061</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Brookins, Jr., Howard</td><td>21</td><td>(773) 881-9300</td><td>(773) 881-2152</td><td>
+                                                
+                                            Ward21@cityofchicago.org</td><td>http://www.21Chicago.com</td><td>9011 South Ashland Avenue, Unit B
+
+
+</td><td>Chicago</td><td>IL</td><td>60620</td><td>(312) 744-4810 / 4811</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Burke, Edward M.</td><td>14</td><td>(773) 471-1414</td><td>(773) 471-1648</td><td>
+                                                
+                                            Ward14@cityofchicago.org</td><td>http://www.committeeonfinance.org/</td><td>2650 West 51st Street
+
+
+</td><td>Chicago</td><td>IL</td><td>60632</td><td>(312) 744-3380 / 3381</td><td>121 North LaSalle Street, Room 302</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Burnett, Jr., Walter</td><td>27</td><td>(312) 432-1995</td><td>(312) 432-1049</td><td>
+                                                
+                                            Ward27@cityofchicago.org</td><td>http://aldermanburnett.com/</td><td>4 North Western Avenue
+
+
+</td><td>Chicago</td><td>IL</td><td>60612</td><td>(312) 744-6124 / 6125 </td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Cappleman, James</td><td>46</td><td>(773) 878-4646</td><td>(773) 878-4920</td><td>
+                                                
+                                            Ward46@cityofchicago.org</td><td>http://www.James46.org/</td><td>4544 North Broadway Avenue</td><td>Chicago</td><td>IL</td><td>60640</td><td> (312) 744-6831 / 5694</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Cardenas, George A.</td><td>12</td><td>(773) 523-8250</td><td>(773) 523-8440</td><td>
+                                                
+                                            Ward12@cityofchicago.org</td><td>&nbsp;</td><td>3476 South Archer Avenue
+
+</td><td>Chicago</td><td>IL</td><td>60608</td><td>(312) 744-3068 / 4025</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Cochran, Willie</td><td>20</td><td>(773) 955-5610</td><td>(773) 955-5612</td><td>
+                                                
+                                            Ward20@cityofchicago.org</td><td>http://the20thward.com</td><td>6357 South Cottage Grove Avenue
+
+</td><td>Chicago</td><td>IL</td><td>60637</td><td>(312) 744-6840 / 5688</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Curtis, Derrick G.</td><td>18</td><td>(773) 284-5057</td><td>(773) 284-5956</td><td>
+                                                
+                                            Ward18@cityofchicago.org</td><td>&nbsp;</td><td>8359 South Pulaski Road</td><td>Chicago</td><td>IL</td><td>60652</td><td>(312) 744-6856</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Dowell, Pat</td><td>03</td><td>(773) 373-9273</td><td>(773) 373-6852</td><td>
+                                                
+                                            Ward03@cityofchicago.org</td><td>http://www.ward03chicago.com </td><td>5046 South State Street
+
+
+</td><td>Chicago</td><td>IL</td><td>60609</td><td>(312) 744-8734 / 6712</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Emanuel, Rahm</td><td>Mayor</td><td>N/A</td><td>N/A</td><td>
+                                                
+                                            &nbsp;</td><td>http://www.cityofchicago.org/city/en/depts/mayor.html</td><td>N/A</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>121 North LaSalle Street, 5th Floor</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Ervin, Jason C.</td><td>28</td><td>(773) 533-0900</td><td>(773) 522-9842</td><td>
+                                                
+                                            Ward28@cityofchicago.org</td><td>http://www.AldermanErvin.com/</td><td>2622 West Jackson Boulevard, Suite 200-A
+
+
+</td><td>Chicago</td><td>IL</td><td>60612</td><td>(312) 744-3066</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Foulkes, Toni</td><td>16</td><td>(773) 863-0220</td><td>(773) 863-0260</td><td>
+                                                
+                                            Ward16@cityofchicago.org</td><td>&nbsp;</td><td>1504 West 63rd Street
+
+</td><td>Chicago</td><td>IL</td><td>60636</td><td>(312) 744-6850 / 6854</td><td>121 North LaSalle Street, Room 300
+
+</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Hairston, Leslie A.</td><td>05</td><td>(773) 324-5555</td><td>(773) 324-1585</td><td>
+                                                
+                                            Ward05@cityofchicago.org</td><td>&nbsp;</td><td>2325 East 71st Street
+
+
+</td><td>Chicago</td><td>IL</td><td>60649</td><td>(312) 744-6832 / 3195</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Harris, Michelle A.</td><td>08</td><td>(773) 874-3300</td><td>(773) 224-2425</td><td>
+                                                
+                                            Ward08@cityofchicago.org</td><td>http://www.Aldermanmichelleharris.net</td><td>8539 South Cottage Grove Avenue
+</td><td>Chicago</td><td>IL</td><td>60619</td><td>(312) 744-3075 / 6825</td><td>121 Noth LaSalle Street, Room 200
+</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Hopkins, Brian </td><td>02</td><td>(312) 643-2299</td><td>&nbsp;</td><td>
+                                                
+                                            Ward02@cityofchicago.org</td><td>&nbsp;</td><td>1400 North Ashland Avenue</td><td>Chicago</td><td>IL</td><td>60622</td><td>(312) 744-6836</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            King, Sophia D.</td><td>04</td><td>(773) 536-8103</td><td>773-536-7296</td><td>
+                                                
+                                            Ward04@cityofchicago.org</td><td>http://www.aldsophiaking.com</td><td>435 East 35th Street, 1st Floor</td><td>Chicago</td><td>IL</td><td>60616</td><td>312-744-2690</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Laurino, Margaret</td><td>39</td><td>(773) 736-5594</td><td>(773) 736-2333</td><td>
+                                                
+                                            Ward39@cityofchicago.org</td><td>http://www.aldermanlaurino.com/</td><td>4404 West Lawrence Avenue
+
+
+</td><td>Chicago</td><td>IL</td><td>60630</td><td>(312) 744-7242 / 7243</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Lopez, Raymond A.</td><td>15</td><td>(773) 306-0837</td><td>(773) 424-8720</td><td>
+                                                
+                                            Ward15@cityofchicago.org</td><td>http://www.the15thward.org</td><td>6412 South Ashland Avenue</td><td>Chicago</td><td>IL</td><td>60636</td><td>(312) 744-4321</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Maldonado, Roberto</td><td>26</td><td>(773) 395-0143</td><td>(773) 395-0146</td><td>
+                                                
+                                            Ward26@cityofchicago.org</td><td>http://robertomaldonado.com</td><td>2511 West Division Street
+
+
+</td><td>Chicago</td><td>IL</td><td>60622</td><td>(312) 744-6853 / 4198</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Mell, Deborah</td><td>33</td><td>(773) 478-8040</td><td>(773) 478-8006</td><td>
+                                                
+                                            Ward33@cityofchicago.org</td><td>http://www.33rdward.org</td><td>3001 West Irving Park Road</td><td>Chicago</td><td>IL</td><td>60618</td><td>(312) 744-3373 / 3379</td><td>121 North LaSalle Street , Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Mitchell, Gregory I.</td><td>07</td><td>(773) 731-7777</td><td>(877) 961-4426</td><td>
+                                                
+                                            7th@gregmitchell7thward.org</td><td>http://www.gregmitchell7thward.org/</td><td>2249 East 95th Street</td><td>Chicago</td><td>IL</td><td>60617</td><td>(312) 744-6833</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Mitts, Emma</td><td>37</td><td>(773) 379-0960</td><td>(773) 773-0966</td><td>
+                                                
+                                            Ward37@cityofchicago.org</td><td>https://www.cityofchicago.org/city/en/about/wards/37.html</td><td>4924 West Chicago Avenue
+
+
+</td><td>Chicago</td><td>IL</td><td>60651</td><td> (312) 744-3180 / 1589</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Moore, David H.</td><td>17</td><td>(773) 783-3672</td><td>&nbsp;</td><td>
+                                                
+                                            Ward17@cityofchicago.org</td><td>&nbsp;</td><td>1344 West 79th Street</td><td>Chicago</td><td>IL</td><td>60620</td><td>(312) 744-3435</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Moore, Joseph</td><td>49</td><td>(773) 338-5796</td><td>(773) 338-5989</td><td>
+                                                
+                                            Ward49@cityofchicago.org</td><td>http://www.ward49.com</td><td>7356 North Greenview Avenue
+
+
+</td><td>Chicago</td><td>IL</td><td>60626</td><td>(312) 744-3067 / 3080 </td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Moreno, Proco Joe</td><td>01</td><td>(773) 278-0101</td><td>&nbsp;</td><td>
+                                                
+                                            Ward01@cityofchicago.org</td><td>http://www.ward1.org 
+</td><td>2740 West North Avenue
+
+</td><td>Chicago</td><td>IL</td><td>60647</td><td>(312) 744-3063 / 1367</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Munoz, Ricardo</td><td>22</td><td>(773) 762-1771</td><td>(773) 762-1825</td><td>
+                                                
+                                            Ward22@cityofchicago.org</td><td>&nbsp;</td><td>2500 South St. Louis Avenue
+
+</td><td>Chicago</td><td>IL</td><td>60623</td><td> (312) 744-9491 / 9492</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Napolitano, Anthony V.</td><td>41</td><td>(773) 631-2241</td><td>(773) 631-2479</td><td>
+                                                
+                                            Ward41@cityofchicago.org</td><td>http://www.chicago41.com</td><td>7442 North Harlem Avenue</td><td>Chicago</td><td>IL</td><td>60631</td><td>(312) 744-3942</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            O'Connor, Patrick</td><td>40</td><td>(773) 769-1140</td><td>(773) 769-3804</td><td>
+                                                
+                                            Ward40@cityofchicago.org</td><td>http://www.aldermanoconnor.com/</td><td>5850 North Lincoln Avenue
+</td><td>Chicago</td><td>IL</td><td>60659</td><td>(312) 744-6858 / 7248</td><td>121 North LaSalle Street, Room 300
+</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            O'Shea, Matthew J.</td><td>19</td><td>(773) 238-8766</td><td>(773) 672-5133</td><td>
+                                                
+                                            Ward19@cityofchicago.org</td><td>http://the19thward.com/</td><td>10400 South Western Avenue</td><td>Chicago</td><td>IL</td><td>60643</td><td>(312) 744-3072 / 5682 </td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Osterman, Harry</td><td>48</td><td>(773) 784-5277</td><td>(773) 784-6630</td><td>
+                                                
+                                            Ward48@cityofchicago.org</td><td>http://www.48thward.org</td><td>5533 North Broadway Avenue</td><td>Chicago</td><td>IL</td><td>60640</td><td>(312) 744-6834 / 6860</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Pawar, Ameya</td><td>47</td><td>(773) 868-4747</td><td>(773) 549-4757</td><td>
+                                                
+                                            Ward47@cityofchicago.org</td><td>http://www.chicago47.org/</td><td>4243 North Lincoln Avenue</td><td>Chicago</td><td>IL</td><td>60618</td><td> (312) 744-0446 / 4021</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Quinn, Marty</td><td>13</td><td>(773) 581-8000</td><td>(773) 581-9414</td><td>
+                                                
+                                            Ward13@cityofchicago.org</td><td>&nbsp;</td><td>6500 South Pulaski Road</td><td>Chicago</td><td>IL</td><td>60629</td><td>(312) 744-3058 / 3076</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Ramirez-Rosa, Carlos</td><td>35</td><td>(773) 887-3772</td><td>(773) 887-5739</td><td>
+                                                
+                                            Ward35@cityofchicago.org</td><td>http://www.aldermancarlosrosa.org</td><td>2842 North Milwaukee Avenue</td><td>Chicago</td><td>IL</td><td>60618</td><td>(312) 744-6835</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Reboyras, Ariel</td><td>30</td><td>(773) 794-3095</td><td>(773) 794-8576</td><td>
+                                                
+                                            Ward30@cityofchicago.org</td><td>&nbsp;</td><td>3559 North Milwaukee Avenue
+
+
+</td><td>Chicago</td><td>IL</td><td>60641</td><td>(312) 744-3304 / 3305 </td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Reilly, Brendan</td><td>42</td><td>(312) 642-4242</td><td>(312) 642-0420</td><td>
+                                                
+                                            Ward42@cityofchicago.org</td><td>http://www.ward42chicago.com/</td><td>325 West Huron Street, Suite 510
+
+</td><td>Chicago</td><td>IL</td><td>60654</td><td>(312) 744-3062 / 3065</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Sadlowski Garza, Susan</td><td>10</td><td>(773) 768-8138</td><td>&nbsp;</td><td>
+                                                
+                                            Ward10@cityofchicago.org</td><td>&nbsp;</td><td>10500 South Ewing Avenue, 1st Floor</td><td>Chicago</td><td>IL</td><td>60617</td><td>(312) 744-3078</td><td>121 North LaSalle Street, Suite 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Santiago, Milagros</td><td>31</td><td>(773) 278-0031</td><td>(773) 278-4381</td><td>
+                                                
+                                            Ward31@cityofchicago.org</td><td>http://www.aldermansantiago.com</td><td>2521 North Pulaski Road</td><td>Chicago</td><td>IL</td><td>60639</td><td>(312) 744-6102</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Sawyer, Roderick T.</td><td>06</td><td>(773) 635-0006</td><td>(773) 891-5679</td><td>
+                                                
+                                            Ward06@cityofchicago.org</td><td>http://www.6ward.com</td><td>700 East 79th Street </td><td>Chicago</td><td>IL</td><td>60619</td><td>(312) 744-6868 / 0670</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Scott, Jr. Michael</td><td>24</td><td>(773) 533-2400 </td><td>&nbsp;</td><td>
+                                                
+                                            Ward24@cityofchicago.org</td><td>http://www.aldermanscott.com</td><td>1158 South Keeler Street</td><td>Chicago</td><td>IL</td><td>60624</td><td>312-744-6839 / 6849</td><td>121 North LaSalle Street, Suite 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Silverstein, Debra L.</td><td>50</td><td>(773) 262-1050</td><td>(773) 381-2970</td><td>
+                                                
+                                            Ward50@cityofchicago.org</td><td>http://50thwardchicago.com</td><td>2949 West Devon Avenue, Suite A</td><td>Chicago</td><td>IL</td><td>60659</td><td>(312) 744-6855 / 5680</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Smith, Michele</td><td>43</td><td>(773) 348-9500</td><td>(773) 348-9594</td><td>
+                                                
+                                            Ward43@cityofchicago.org</td><td>http://www.ward43.org/</td><td>2523 North Halsted Street</td><td>Chicago</td><td>IL</td><td>60614</td><td>(312) 744-5685 / 3071</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Solis, Daniel</td><td>25</td><td>(773) 523-4100</td><td>(773) 523-9900</td><td>
+                                                
+                                            Ward25@cityofchicago.org</td><td>http://www.dannysolis.org/</td><td>1645 South Blue Island Avenue
+
+</td><td>Chicago</td><td>IL</td><td>60608</td><td>(312) 744-6845 / 6846 </td><td>121 North LaSalle Street, Room 304</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Sposato, Nicholas</td><td>38</td><td>(773) 283-3838</td><td>(773) 283-3235</td><td>
+                                                
+                                            Ward38@cityofchicago.org</td><td>http://aldermansposato.com/</td><td>3821 North Harlem Avenue</td><td>Chicago</td><td>IL</td><td>60634</td><td>(312) 744-6857</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Tabares, Silvana</td><td>23</td><td>(773) 582-4444</td><td>(773) 5823332</td><td>
+                                                
+                                            Ward23@cityofchicago.org</td><td>http://w.w.w.chicago23ward.com/</td><td>6247 South Archer Avenue</td><td>Chicago</td><td>IL</td><td>60638</td><td>(312) 744-6828 / 5683</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Taliaferro, Chris</td><td>29</td><td>(773) 237-6460</td><td>(773) 237-6418</td><td>
+                                                
+                                            Ward29@cityofchicago.org</td><td>http://www.aldtaliaferro.com</td><td>6272 West North Avenue</td><td>Chicago</td><td>IL</td><td>60639</td><td> (312) 744-8805</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Thompson, Patrick D.</td><td>11</td><td>(773) 254-6677</td><td>&nbsp;</td><td>
+                                                
+                                            Ward11@cityofchicago.org</td><td>http://www.ward11.org</td><td>3659 South Halsted Street</td><td>Chicago</td><td>IL</td><td>60609</td><td>(312) 744-6663</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Tunney, Thomas</td><td>44</td><td>(773) 525-6034</td><td>(773) 525-5058</td><td>
+                                                
+                                            Ward44@cityofchicago.org</td><td>http://44thward.org/</td><td>3223 North Sheffield Avenue
+
+</td><td>Chicago</td><td>IL</td><td>60657</td><td>(312) 744-3073 / 3133 </td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Valencia, Anna M.</td><td>Clerk</td><td>N/A</td><td>N/A</td><td>
+                                                
+                                            &nbsp;</td><td>http://www.chicityclerk.com</td><td>N/A</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>(312) 744-8590</td><td>121 North LaSalle Street, Room 107</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Villegas, Gilbert</td><td>36</td><td>(773) 745-4636</td><td>(773) 745-4638</td><td>
+                                                
+                                            Ward36@cityofchicago.org</td><td>http://www.36thward.org</td><td>6934 West Diversey Avenue</td><td>Chciago</td><td>IL</td><td>60607</td><td>(312) 744-4324</td><td>121 North LaSalle Street, Room 200</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr><tr>
+		<td>
+                                                
+                                            Waguespack, Scott</td><td>32</td><td>(773) 248-1330</td><td>(773) 248-1360</td><td>
+                                                
+                                            Ward32@cityofchicago.org</td><td>http://www.ward32.org</td><td>2657 North Clybourn Avenue
+
+
+</td><td>Chicago</td><td>IL</td><td>60614</td><td>(312) 744-6567 / 6574</td><td>121 North LaSalle Street, Room 300</td><td>Chicago</td><td>IL</td><td>60602</td>
+	</tr>
+	</tbody>
+
+</table></body></html>
