@@ -301,7 +301,7 @@ function treeVis(data) {
 
     // LINKS
 
-    // Update the links...
+    // Update links
     var link = svg.selectAll('path.link')
         .data(links, function(d) { return d.id; });
 
@@ -357,17 +357,25 @@ function treeVis(data) {
     function click(d) {
       if (d.depth === 1) {
         if (d3.select(this).classed("active") === false) {
-          d3.select(this).classed("active", true)
+          d3.select(this).classed("active", true) //ed("active", true)
 
           d3.selectAll(".alderman")
+            .filter(function(d) {
+              console.log(!(d.classed("active") === true))
+              return !(d.classed("active") === true)
+            })
             .transition()
             .attr("fill-opacity", 0)
             .attr("stroke-opacity", 0);
 
-          
-          d3.selectAll(".alderman.active")
+          if (d3.select(this).classed("active") === true) {
+            console.log(d3.select(this).classed("active") === true)
+            console.log(d3.select(".node.alderman.active"))
+            d3.select(".node.alderman.active")
             .transition()
-            .attr("fill-opacity", 1);
+            .attr("fill-opacity", 1)
+            .attr("stroke-opacity", 1);
+          } 
         }
         else {
           d3.select(this).classed("active", false);
