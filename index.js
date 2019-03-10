@@ -360,22 +360,19 @@ function treeVis(data) {
           d3.select(this).classed("active", true) //ed("active", true)
 
           d3.selectAll(".alderman")
-            .filter(function(d) {
-              console.log(!(d.classed("active") === true))
-              return !(d.classed("active") === true)
-            })
+            .filter("active")
             .transition()
             .attr("fill-opacity", 0)
             .attr("stroke-opacity", 0);
 
-          if (d3.select(this).classed("active") === true) {
-            console.log(d3.select(this).classed("active") === true)
-            console.log(d3.select(".node.alderman.active"))
-            d3.select(".node.alderman.active")
-            .transition()
-            .attr("fill-opacity", 1)
-            .attr("stroke-opacity", 1);
-          } 
+          // if (d3.select(this).classed("active") === true) {
+          //   console.log(d3.select(this).classed("active") === true)
+          //   console.log(d3.select(".node.alderman.active"))
+          //   d3.select(".node.alderman.active")
+          //   .transition()
+          //   .attr("fill-opacity", 1)
+          //   .attr("stroke-opacity", 1);
+          // } 
         }
         else {
           d3.select(this).classed("active", false);
