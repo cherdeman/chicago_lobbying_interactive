@@ -200,6 +200,14 @@ function treeVis(data) {
       .style("font-size", "12px")
       .text("Source: City of Chicago Lobbying Data, Compensation and Contributions");
 
+  svg.append("text")
+      .attr("class", "text")
+      .attr("x", 15 )             
+      .attr("y", -15)
+      .attr("text-anchor", "start")
+      .style("font-size", "12px")
+      .text("Click on an alderman to explore!");
+
   
   
   // Set transition duration
