@@ -109,9 +109,9 @@ function treeVis(data) {
   console.log('treeviz')
   console.log(data)
   // plot configurations
-  const height = 1200;
-  const width = 1200;
-  const margin = {top: 50, left: 130, right: 50, bottom: 50};
+  const height = 1000;
+  const width = 1000;
+  const margin = {top: 25, left: 130, right: 50, bottom: 50};
 
   const plotWidth = width - margin.left - margin.right
   const plotHeight = height - margin.top - margin.bottom
@@ -195,7 +195,7 @@ function treeVis(data) {
   svg.append("text")
       .attr("class", "text")
       .attr("x", -85)             
-      .attr("y", height - 75)
+      .attr("y", height - 50)
       .attr("text-anchor", "start")
       .style("font-size", "12px")
       .text("Source: City of Chicago Lobbying Data, Compensation and Contributions");
@@ -238,7 +238,7 @@ function treeVis(data) {
         links = treeData.descendants().slice(1);
 
     // Normalize for fixed-depth.
-    nodes.forEach(function(d){ d.y = d.depth * 220});
+    nodes.forEach(function(d){ d.y = d.depth * 180});
 
     // ****************** Nodes section ***************************
 
@@ -356,7 +356,7 @@ function treeVis(data) {
 
     // Update the node attributes and style
     nodeUpdate.select('circle.node')
-      .attr('r', 10)
+      .attr('r', 8)
       .style("fill", function(d) {
           if (d.depth === 1) {
             return "#6EB643"
