@@ -1,27 +1,50 @@
 /* global d3 */
+Promise.all([
+  './data/ward_boundaries_update.geojson',
+  './data/alc2.json'
+].map(url => fetch(url)
+  .then(data => data.json())))
+  .catch(error => console.error(error))
+  .then(data => myVis(data));
 
-function data_input(string, callback) {
-  fetch(string)
-    .then(data => data.json())
-    .catch(error => console.error(error))
-    .then(data => {
-      callback(data)
-    })
+
+// function data_input(string, callback) {
+//   fetch(string)
+//     .then(data => data.json())
+//     .catch(error => console.error(error))
+//     .then(data => {
+//       callback(data)
+//     })
+// }
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   data_input('./data/ward_boundaries_update.geojson', mapVis)
+//   data_input('./data/alc2.json', function(data) {
+//     treeVis({children:data}) 
+//   })
+// });
+
+
+function myVis(data) {
+  const [map_data, tree] = data
+  const tree_data = {children:tree}
+  //console.log("here")
+  //console.log(map_data)
+  //console.log(tree_data)
+
+  mapVis(map_data, tree_data)
+  treeVis(tree_data)
+
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  data_input('./data/ward_boundaries_update.geojson', mapVis)
-  data_input('./data/alc2.json', function(data) {
-    treeVis({children:data}) 
-  })
-});
 
-
-function mapVis(data) {
+function mapVis(data, tree_data) {
   console.log('mapviz')
   console.log(data)
+  console.log(tree_data)
 
-  const map = new L.Map("map", {center: [41.84, -87.73], zoom: 10})
+  const map = new L.Map("map", {center: [41.84, -87.73], minZoom: 9,
+        maxZoom: 11, zoom: 10})
     .addLayer(new L.TileLayer("http://a.tile.stamen.com/toner/{z}/{x}/{y}.png"));
 
 
@@ -79,9 +102,48 @@ function mapVis(data) {
     });
   }
 
+  // var promise = getJSON('./data/alc2.json');
+  // promise.then(data => data.json())
+  //         .then(function(data) {
+  //       var allbusinesses = L.geoJson(data);
+  //       console.log(allbusinesses)
+  //     });
+            //     var cafes = L.geoJson(data, {
+            // filter: function(feature, layer) {
+            //     return feature.properties.BusType == "Cafe";
+            // },
+            // pointToLayer: function(feature, latlng) {
+            //     return L.marker(latlng, {
+            //         icon: cafeIcon
+            //     }).on('mouseover', function() {
+            //         this.bindPopup(feature.properties.Name).openPopup();
+            //     });
+            // }
+       
+
+  function filterTreeData(e, data, tree_data, layer) {
+    console.log(layer)
+    layer.on({
+
+    })
+    console.log(e.target.properties)
+    console.log("getting here")
+    // console.log(data.alderman)
+    // const name = data.alderman
+    // r = tree_data.filter(function(d, name) {
+    //   if (d.data.depth === 1) {
+    //     return d.data.name === name
+    //   }
+    // })
+    // return r; 
+  }
+
+
+
   geojson = L.geoJSON(data, {
       style: style,
-      onEachFeature: onEachFeature
+      onEachFeature: onEachFeature,
+      click: filterTreeData
   }).addTo(map);
   
   var info = L.control();
@@ -122,6 +184,24 @@ function treeVis(data) {
     .append("g")
     .attr("transform", "translate("
           + margin.left + "," + margin.top + ")");
+
+  function getIn() {
+    return data.children.map(d => d.in);
+    //return data.reduce((max, d) => parseInt(d.in, 10) > max ? d.in : max, d[0].in);
+  }
+  function getMax() {
+    return Math.max(...getIn())
+  }
+  console.log(getIn())
+  console.log(getMax())
+
+  //return data.reduce((max, p) => p.y > max ? p.y : max, data[0].y);
+
+  // set scales
+  const aldScale = d3.scaleLinear().domain([0, getMax()]).range([4, 12]).nice();
+  console.log(aldScale(1000))
+  const lobScale = d3.scaleLinear().domain([0, 1]).range([4, 12]).nice();
+  const cliScale = d3.scaleLinear().domain([0, 1]).range([4, 12]).nice();
 
   // create color mapping
   const colorLookup = {alderman:{stroke:"#357623", fill:"#6EB643"}, 
@@ -241,16 +321,16 @@ function treeVis(data) {
     // Assigns the x and y position for the nodes
     var treeData = treemap(root);
 
-    // Compute the new tree layout.
+    // Compute the new tree layout
     var nodes = treeData.descendants(),
         links = treeData.descendants().slice(1);
 
-    // Normalize for fixed-depth.
+    // Normalize for fixed-depth
     nodes.forEach(function(d){ d.y = d.depth * 180});
 
-    // ****************** Nodes section ***************************
+    // ****************** Nodes ***************************
 
-    // Update the nodes...
+    // Update the nodes
     var node = svg.selectAll('g.node')
         .data(nodes, function(d) {return d.id || (d.id = ++i); });
 
@@ -364,7 +444,14 @@ function treeVis(data) {
 
     // Update the node attributes and style
     nodeUpdate.select('circle.node')
-      .attr('r', 8)
+      .attr('r', function(d) {
+        if (d.depth === 1) {
+          console.log("inner")
+          console.log(d)
+          return aldScale(d.data.in)
+        }
+        else {return 8}
+      }) //d => d.in 'r', 8
       .style("fill", function(d) {
           if (d.depth === 1) {
             return "#6EB643"
@@ -376,7 +463,6 @@ function treeVis(data) {
           }
       })
       .attr('cursor', 'pointer');
-
 
     // Remove any exiting nodes
     var nodeExit = node.exit().transition()
@@ -456,8 +542,8 @@ function treeVis(data) {
 
           d3.selectAll(".alderman")
             .transition()
-            .attr("fill-opacity", 0)
-            .attr("stroke-opacity", 0);
+            .attr("fill-opacity", 0.2)
+            .attr("stroke-opacity", 0.2);
 
           d3.selectAll(".active")
           .transition()

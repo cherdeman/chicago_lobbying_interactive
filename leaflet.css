@@ -24,8 +24,8 @@ svg {
   align-items: center;
   justify-content: center;
   border: solid black;
-  height: 100%
-  width: 75%;
+  height: 500px;
+  width: 350px;
 }
 
 .vis {
