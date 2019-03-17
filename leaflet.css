@@ -87,15 +87,15 @@ svg {
 	font-size: 8pt;
 }
 
-.legend{
+.d3legend{
 	fill: black;
 	stroke: black;
 }
 
 .tooltip {	
     position: absolute;	
-    top: 0;
-    left: 0;		
+    top: 200px;
+    right: 75px;		
     text-align: center;			
     width: auto;					
     height: auto;					
@@ -107,6 +107,27 @@ svg {
     border-radius: 8px;			
     pointer-events: none;	
     border-color: red;		
+}
+
+.legend {
+    line-height: 18px;
+    color: white;
+    fill:white;
+    stroke:white;
+}
+
+text {
+	color: white;
+	fill: white;
+	stroke:white;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.9;
+
 }
 
 /* required styles */

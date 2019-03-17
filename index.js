@@ -165,6 +165,27 @@ function mapVis(data, tree_data) {
 
   info.addTo(map);
 
+  //legend
+  var legend = L.control({position: 'bottomleft'});
+
+  legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        amount = [0, 2000, 5000, 10000, 20000],
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < amount.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(amount[i] + 1) + '"></i> $' +
+            amount[i] + (amount[i + 1] ? '&ndash; $' + amount[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(map);
+
 }
 
 function treeVis(data) {
@@ -256,7 +277,7 @@ function treeVis(data) {
      .style("fill-opacity", 0);
 
   svg.append("text")
-     .attr("class", "text legend")
+     .attr("class", "text d3legend")
      .attr("x", -85)
      .attr("y", 0)
      .attr("text-anchor", "right")
@@ -264,7 +285,7 @@ function treeVis(data) {
      .text("Node Legend");
 
   svg.append("text")
-     .attr("class", "text legend")
+     .attr("class", "text d3legend")
      .attr("x", -60)
      .attr("y", 22)
      .attr("text-anchor", "right")
@@ -272,7 +293,7 @@ function treeVis(data) {
      .text("Aldermen");
 
   svg.append("text")
-     .attr("class", "text legend")
+     .attr("class", "text d3legend")
      .attr("x", -60)
      .attr("y", 47)
      .attr("text-anchor", "right")
@@ -280,7 +301,7 @@ function treeVis(data) {
      .text("Lobbyists");
 
   svg.append("text")
-     .attr("class", "text legend")
+     .attr("class", "text d3legend")
      .attr("x", -60)
      .attr("y", 72)
      .attr("text-anchor", "right")
@@ -358,33 +379,24 @@ function treeVis(data) {
       })
       .on('click', click)
       .on("mouseover", function(d) {
-          //var g = d3.select(this); // The node
-          // The class is used to remove the additional text later
-          // var info = g.append('div').append('p').append('text')
-          //    .classed('tooltip', true)
-          //    .attr('x', 20)
-          //    .attr('y', 10)
-          //    .attr("data-html", "true")
           infodiv.transition().duration(200).style("opacity", 0.9);
           infodiv.html(function(data) { 
               if (d.depth === 1) {
-                return "Donations from Lobbyists: " + d.data.in
+                return "Alderman: " + d.data.name + "<br>Donations from Lobbyists: $" + d.data.in
               } else if (d.depth === 2) {
-                return "Payments from Clients: " + d.data.in + "<br>" + "Donations to Alderman: " + d.data.out
+                return "Lobbyist: " + d.data.name + "<br>Payments from Clients: $" + d.data.in + "<br>Donation to " + d.parent.data.name + ": $" + d.data.out
               } else {
-                return "Payments to Lobbyists: " + d.data.out
+                return "Client : " + d.data.name + "<br>Payments to " + d.parent.data.name + ": $" + d.data.out
               }
             });
       })
       .on("mouseout", function() {
           // Remove the info text on mouse out.
-          d3.select(this).select('text.tooltip').remove()
+          infodiv.transition()    
+                .duration(200)    
+                .style("opacity", 0); 
         });
       ;
-
-      d3.select(".tree").append("div") 
-      .attr("class", "tooltip").append("p")  
-      .style("opacity", 1);
 
     // Add Circle for the nodes
     nodeEnter.append('circle')
@@ -588,7 +600,7 @@ function treeVis(data) {
           d3.selectAll(".alderman")
             .transition()
             .attr("fill-opacity", 0.2)
-            .attr("stroke-opacity", 0.2);
+            .attr("stroke-opacity", 0.1);
 
           d3.selectAll(".active")
           .transition()
