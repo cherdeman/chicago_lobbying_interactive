@@ -185,6 +185,11 @@ function treeVis(data) {
     .attr("transform", "translate("
           + margin.left + "," + margin.top + ")");
 
+  // Define the div for the tooltip
+  const div = d3.select(".tree").append("div") 
+      .attr("class", "tooltip")  
+      //.style("opacity", 1);
+
   function getIn() {
     return data.children.map(d => d.in);
     //return data.reduce((max, d) => parseInt(d.in, 10) > max ? d.in : max, d[0].in);
@@ -351,7 +356,30 @@ function treeVis(data) {
         .attr("transform", function(d) {
           return "translate(" + source.y0 + "," + source.x0 + ")";
       })
-      .on('click', click);
+      .on('click', click)
+      .on("mouseover", function(d) {
+          var g = d3.select(this); // The node
+          // The class is used to remove the additional text later
+          var info = g.append('text')
+             .classed('tooltip', true)
+             .attr('x', 20)
+             .attr('y', 10)
+             .attr("data-html", "true")
+             .text(function(d) { 
+              if (d.depth === 1) {
+                return "Donations from Lobbyists: " + d.data.in
+              } else if (d.depth === 2) {
+                return "Payments from Clients: " + d.data.in + "<br /> Donations to Alderman: " + d.data.out
+              } else {
+                return "Payments to Lobbyists: " + d.data.out
+              }
+            });
+      })
+      .on("mouseout", function() {
+          // Remove the info text on mouse out.
+          d3.select(this).select('text.tooltip').remove()
+        });
+      ;
 
     // Add Circle for the nodes
     nodeEnter.append('circle')
