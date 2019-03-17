@@ -192,16 +192,27 @@ function treeVis(data) {
   function getMax() {
     return Math.max(...getIn())
   }
-  console.log(getIn())
-  console.log(getMax())
-
-  //return data.reduce((max, p) => p.y > max ? p.y : max, data[0].y);
+  
+  // Could I use recursion? Yes. Am I doing to? Not today, folks.
+  function getOut() {
+    var vals = []
+    for (child in data.children) {
+      //console.log(data.children[child])
+      for (grandchild in data.children[child].children) 
+        //console.log(grandchild)
+        //console.log(data.children[child].children[grandchild])
+        for (ggchild in data.children[child].children[grandchild].children)
+          vals.push(data.children[child].children[grandchild].children[ggchild].out)
+    return vals
+    }
+  }
+  
 
   // set scales
-  const aldScale = d3.scaleLinear().domain([0, getMax()]).range([4, 12]).nice();
-  console.log(aldScale(1000))
-  const lobScale = d3.scaleLinear().domain([0, 1]).range([4, 12]).nice();
-  const cliScale = d3.scaleLinear().domain([0, 1]).range([4, 12]).nice();
+  const aldScale = d3.scaleLinear().domain([0, getMax(data)]).range([2, 20]).nice();
+  const lobScale = d3.scaleLinear().domain([0, 2000]).range([2, 20]).nice();
+  const cliScale = d3.scaleLinear().domain([0, Math.max(...getOut())]).range([2, 20]).nice();
+  console.log(cliScale(10000))
 
   // create color mapping
   const colorLookup = {alderman:{stroke:"#357623", fill:"#6EB643"}, 
@@ -446,11 +457,12 @@ function treeVis(data) {
     nodeUpdate.select('circle.node')
       .attr('r', function(d) {
         if (d.depth === 1) {
+          return aldScale(d.data.in)
+        } else if (d.depth === 2) {
           console.log("inner")
           console.log(d)
-          return aldScale(d.data.in)
-        }
-        else {return 8}
+          return lobScale(d.data.out)
+        } else {return cliScale(d.data.out)}
       }) //d => d.in 'r', 8
       .style("fill", function(d) {
           if (d.depth === 1) {
