@@ -39,6 +39,7 @@ function myVis(data) {
 
 
 function mapVis(data, tree_data) {
+  // credit to leaflet choropleth tutorial: https://leafletjs.com/examples/choropleth/
   console.log('mapviz')
   console.log(data)
   console.log(tree_data)
@@ -51,7 +52,6 @@ function mapVis(data, tree_data) {
   L.geoJSON(data, {style: style}).addTo(map);
 
   var geojson;
-  //geojson = L.geoJSON(data, {style: style});
 
   function getColor(d) {
     return d > 19999  ? '#08519c' :
@@ -120,7 +120,7 @@ function mapVis(data, tree_data) {
             //     });
             // }
        
-
+  // Trying to mess with filtering
   function filterTreeData(e, data, tree_data, layer) {
     console.log(layer)
     layer.on({
