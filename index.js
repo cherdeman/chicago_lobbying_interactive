@@ -186,9 +186,9 @@ function treeVis(data) {
           + margin.left + "," + margin.top + ")");
 
   // Define the div for the tooltip
-  const div = d3.select(".tree").append("div") 
+  const infodiv = d3.select(".tree").append("div") 
       .attr("class", "tooltip")  
-      //.style("opacity", 1);
+      .style("opacity", 1);
 
   function getIn() {
     return data.children.map(d => d.in);
@@ -358,18 +358,19 @@ function treeVis(data) {
       })
       .on('click', click)
       .on("mouseover", function(d) {
-          var g = d3.select(this); // The node
+          //var g = d3.select(this); // The node
           // The class is used to remove the additional text later
-          var info = g.append('text')
-             .classed('tooltip', true)
-             .attr('x', 20)
-             .attr('y', 10)
-             .attr("data-html", "true")
-             .text(function(d) { 
+          // var info = g.append('div').append('p').append('text')
+          //    .classed('tooltip', true)
+          //    .attr('x', 20)
+          //    .attr('y', 10)
+          //    .attr("data-html", "true")
+          infodiv.transition().duration(200).style("opacity", 0.9);
+          infodiv.html(function(data) { 
               if (d.depth === 1) {
                 return "Donations from Lobbyists: " + d.data.in
               } else if (d.depth === 2) {
-                return "Payments from Clients: " + d.data.in + "<br /> Donations to Alderman: " + d.data.out
+                return "Payments from Clients: " + d.data.in + "<br>" + "Donations to Alderman: " + d.data.out
               } else {
                 return "Payments to Lobbyists: " + d.data.out
               }
@@ -380,6 +381,10 @@ function treeVis(data) {
           d3.select(this).select('text.tooltip').remove()
         });
       ;
+
+      d3.select(".tree").append("div") 
+      .attr("class", "tooltip").append("p")  
+      .style("opacity", 1);
 
     // Add Circle for the nodes
     nodeEnter.append('circle')
