@@ -1,7 +1,7 @@
 /* global d3 */
 Promise.all([
   './data/ward_boundaries_update.geojson',
-  './data/alc2.json'
+  './data/alc3.json'
 ].map(url => fetch(url)
   .then(data => data.json())))
   .catch(error => console.error(error))
@@ -193,6 +193,8 @@ function treeVis(data) {
     }
   }
 
+  // This formatting function found here:
+  //https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -202,7 +204,6 @@ function treeVis(data) {
   const aldScale = d3.scaleLinear().domain([0, getMax(data)]).range([2, 20]).nice();
   const lobScale = d3.scaleLinear().domain([0, 1500]).range([2, 20]).nice();
   const cliScale = d3.scaleLinear().domain([0, Math.max(...getOut())]).range([2, 20]).nice();
-  //console.log(cliScale(10000))
 
   // create color mapping
   const colorLookup = {alderman:{stroke:"#357623", fill:"#6EB643"}, 

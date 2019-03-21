@@ -1,13 +1,17 @@
 import csv
 import json
 
+def capitalize_names(name):
+    return " ".join([x.capitalize() for x in name.split(" ")])
+
+
 with open('data/alc.csv') as f:
     readCSV = csv.reader(f, delimiter=',')
     next(readCSV, None)
     results = []
     row1 = next(readCSV, None)
-    name = row1[1]
-    lob_name = row1[2]
+    name = capitalize_names(row1[1])
+    lob_name = capitalize_names(row1[2])
     contrib = int(float(row1[3]))
     client_name = row1[4]
     comp = int(float(row1[5]))
@@ -34,8 +38,8 @@ with open('data/alc.csv') as f:
     old_lob_name = lob_name
 
     for row in readCSV:
-        name = row[1]
-        lob_name = row[2]
+        name = capitalize_names(row[1])
+        lob_name = capitalize_names(row[2])
         contrib = int(float(row[3]))
         client_name = row[4]
         comp = int(float(row[5]))
@@ -70,7 +74,7 @@ with open('data/alc.csv') as f:
         old_lob_name = lob_name
 
 
-    with open('data/alc2.json', 'w') as outfile:
+    with open('data/alc3.json', 'w') as outfile:
         json.dump(results, outfile)
 
     with open('data/test2.json', 'w') as outfile:
