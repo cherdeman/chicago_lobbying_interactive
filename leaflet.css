@@ -106,17 +106,20 @@ svg {
     border: 0px;		
     border-radius: 8px;			
     pointer-events: none;	
-    border-color: red;		
+    color: white;	
+    text-transform: lowercase;	
+    text-transform: capitalize;
 }
 
 .legend {
     line-height: 18px;
     color: white;
 }
-
-text {
-	color: white;
-}
+/*
+.tooltiptext {
+	color: red;
+	text-transform: capitalize;
+}*/
 .legend i {
     width: 18px;
     height: 18px;

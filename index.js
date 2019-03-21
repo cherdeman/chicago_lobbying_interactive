@@ -192,6 +192,10 @@ function treeVis(data) {
     return vals
     }
   }
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   
 
   // set scales
@@ -207,8 +211,8 @@ function treeVis(data) {
                       }
 
   const aldStart = 30
-  const lobStart = 130
-  const cliStart = 230
+  const lobStart = 140
+  const cliStart = 250
   const midInterval = 35
   const endInterval = 55
 
@@ -216,11 +220,19 @@ function treeVis(data) {
   //Aldermen
   svg.append("text")
      .attr("class", "text d3legend")
-     .attr("x", -100)
-     .attr("y", aldStart - 25)
+     .attr("x", -101)
+     .attr("y", aldStart - 35)
      .attr("text-anchor", "right")
      .style("font-size", "12px")
-     .text("Donations Received (Alderman)");
+     .text("Donations Received");
+
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -75)
+     .attr("y", aldStart - 23)
+     .attr("text-anchor", "right")
+     .style("font-size", "12px")
+     .text("(Alderman)");
 
   svg.append("circle")
      .attr('r', aldScale(getMax(data)))
@@ -250,7 +262,7 @@ function treeVis(data) {
      .attr("y", aldStart + 5)
      .attr("text-anchor", "right")
      .style("font-size", "10px")
-     .text("$" + getMax(data));
+     .text("$" + numberWithCommas(getMax(data)));
 
   svg.append("text")
      .attr("class", "text d3legend")
@@ -258,7 +270,7 @@ function treeVis(data) {
      .attr("y", aldStart + midInterval + 5)
      .attr("text-anchor", "right")
      .style("font-size", "10px")
-     .text("$" + getMax(data)/2);
+     .text("$" + numberWithCommas(getMax(data)/2));
 
   svg.append("text")
      .attr("class", "text d3legend")
@@ -271,11 +283,19 @@ function treeVis(data) {
   // Lobbyists
   svg.append("text")
      .attr("class", "text d3legend")
-     .attr("x", -100)
-     .attr("y", lobStart - 25)
+     .attr("x", -90)
+     .attr("y", lobStart - 35)
      .attr("text-anchor", "right")
      .style("font-size", "12px")
-     .text("Donations Given (Lobbyist)");
+     .text("Donations Given");
+
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -75)
+     .attr("y", lobStart - 23)
+     .attr("text-anchor", "right")
+     .style("font-size", "12px")
+     .text("(Lobbyist)");
 
   svg.append("circle")
      .attr('r', lobScale(1500))
@@ -305,7 +325,7 @@ function treeVis(data) {
      .attr("y", lobStart + 5)
      .attr("text-anchor", "right")
      .style("font-size", "10px")
-     .text("$" + 1500);
+     .text("$" + numberWithCommas(1500));
 
   svg.append("text")
      .attr("class", "text d3legend")
@@ -327,10 +347,18 @@ function treeVis(data) {
   svg.append("text")
      .attr("class", "text d3legend")
      .attr("x", -100)
-     .attr("y", cliStart - 25)
+     .attr("y", cliStart - 35)
      .attr("text-anchor", "right")
      .style("font-size", "12px")
-     .text("Compensation Paid (Client)");
+     .text("Compensation Paid");
+
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -68)
+     .attr("y", cliStart - 23)
+     .attr("text-anchor", "right")
+     .style("font-size", "12px")
+     .text("(Client)");
 
   svg.append("circle")
      .attr('r', cliScale(Math.max(...getOut())))
@@ -360,7 +388,7 @@ function treeVis(data) {
      .attr("y", cliStart  )
      .attr("text-anchor", "right")
      .style("font-size", "10px")
-     .text("$" + Math.max(...getOut()));
+     .text("$" + numberWithCommas(Math.max(...getOut())));
 
   svg.append("text")
      .attr("class", "text d3legend")
@@ -368,7 +396,7 @@ function treeVis(data) {
      .attr("y", cliStart + midInterval)
      .attr("text-anchor", "right")
      .style("font-size", "10px")
-     .text("$" + Math.max(...getOut())/2);
+     .text("$" + numberWithCommas(Math.max(...getOut())/2));
 
   svg.append("text")
      .attr("class", "text d3legend")
@@ -378,45 +406,13 @@ function treeVis(data) {
      .style("font-size", "10px")
      .text("$" + 0);
 
-  // svg.append("rect")
-  //    .attr("height", 80)
-  //    .attr("width", 100)
-  //    .attr("x", -90)
-  //    .attr("y", 5)
-  //    .style("stroke", "black")
-  //    .style("fill-opacity", 0);
-
-  // svg.append("text")
-  //    .attr("class", "text d3legend")
-  //    .attr("x", -85)
-  //    .attr("y", 0)
-  //    .attr("text-anchor", "right")
-  //    .style("font-size", "14px")
-  //    .text("Node Legend");
-
-  // svg.append("text")
-  //    .attr("class", "text d3legend")
-  //    .attr("x", -60)
-  //    .attr("y", 22)
-  //    .attr("text-anchor", "right")
-  //    .style("font-size", "10px")
-  //    .text("Aldermen");
-
-  // svg.append("text")
-  //    .attr("class", "text d3legend")
-  //    .attr("x", -60)
-  //    .attr("y", 47)
-  //    .attr("text-anchor", "right")
-  //    .style("font-size", "10px")
-  //    .text("Lobbyists");
-
-  // svg.append("text")
-  //    .attr("class", "text d3legend")
-  //    .attr("x", -60)
-  //    .attr("y", 72)
-  //    .attr("text-anchor", "right")
-  //    .style("font-size", "10px")
-  //    .text("Clients");
+  svg.append("rect")
+     .attr("height", 340)
+     .attr("width", 115)
+     .attr("x", -105)
+     .attr("y", -20)
+     .style("stroke", "black")
+     .style("fill-opacity", 0);
 
   // attribution
   svg.append("text")
@@ -492,11 +488,11 @@ function treeVis(data) {
           infodiv.transition().duration(200).style("opacity", 0.9);
           infodiv.html(function(data) { 
               if (d.depth === 1) {
-                return "Alderman: " + d.data.name + "<br>Donations from Lobbyists: $" + d.data.in
+                return "Alderman: " + d.data.name + "<br>Donations from Lobbyists: $" + numberWithCommas(d.data.in)
               } else if (d.depth === 2) {
-                return "Lobbyist: " + d.data.name + "<br>Payments from Clients: $" + d.data.in + "<br>Donation to " + d.parent.data.name + ": $" + d.data.out
+                return "Lobbyist: " + d.data.name + "<br>Payments from Clients: $" + numberWithCommas(d.data.in) + "<br>Donation to " + d.parent.data.name + ": $" + numberWithCommas(d.data.out)
               } else {
-                return "Client : " + d.data.name + "<br>Payments to " + d.parent.data.name + ": $" + d.data.out
+                return "Client : " + d.data.name + "<br>Payments to " + d.parent.data.name + ": $" + numberWithCommas(d.data.out)
               }
             });
       })
