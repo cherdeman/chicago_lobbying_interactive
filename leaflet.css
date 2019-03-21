@@ -1,7 +1,8 @@
 html,
 body {
-  width: 100%;
+  /*width: 100%;
   height: 100%;
+  */
   background: white;
 }
 
@@ -88,8 +89,7 @@ svg {
 }
 
 .d3legend{
-	fill: black;
-	stroke: black;
+	color: black;
 }
 
 .tooltip {	
@@ -112,14 +112,10 @@ svg {
 .legend {
     line-height: 18px;
     color: white;
-    fill:white;
-    stroke:white;
 }
 
 text {
 	color: white;
-	fill: white;
-	stroke:white;
 }
 .legend i {
     width: 18px;

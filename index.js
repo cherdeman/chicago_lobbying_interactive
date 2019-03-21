@@ -172,13 +172,14 @@ function mapVis(data, tree_data) {
 
     var div = L.DomUtil.create('div', 'info legend'),
         amount = [0, 2000, 5000, 10000, 20000],
+        amount_str = ['0', '2k', '5k', '10k', '20k']
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < amount.length; i++) {
         div.innerHTML +=
             '<i style="background:' + getColor(amount[i] + 1) + '"></i> $' +
-            amount[i] + (amount[i + 1] ? '&ndash; $' + amount[i + 1] + '<br>' : '+');
+            amount_str[i] + (amount_str[i + 1] ? '&ndash; $' + amount_str[i + 1] + '<br>' : '+');
     }
 
     return div;
@@ -238,7 +239,7 @@ function treeVis(data) {
   const aldScale = d3.scaleLinear().domain([0, getMax(data)]).range([2, 20]).nice();
   const lobScale = d3.scaleLinear().domain([0, 2000]).range([2, 20]).nice();
   const cliScale = d3.scaleLinear().domain([0, Math.max(...getOut())]).range([2, 20]).nice();
-  console.log(cliScale(10000))
+  //console.log(cliScale(10000))
 
   // create color mapping
   const colorLookup = {alderman:{stroke:"#357623", fill:"#6EB643"}, 
@@ -460,34 +461,6 @@ function treeVis(data) {
                 return !d.depth ? 0 : 1;
               });
 
-    // nodeEnter.append('text')
-    //           .attr("class", "text")
-    //           .attr("dy", "1.35em")
-    //           .attr("x", function(d) {
-    //               return d.children || d._children ? -13 : 13;
-    //           })
-    //           .attr("text-anchor", function(d) {
-    //               return d.children || d._children ? "end" : "start";
-    //           })
-    //           .text(function(d) { return "Received: $"+d.data.in; })
-    //           .style("opacity", function(d){
-    //             return d.depth > 1 ? 0 : 1;
-    //           });
-
-    // nodeEnter.append('text')
-    //           .attr("class", "text")
-    //           .attr("dy", "2.35em")
-    //           .attr("x", function(d) {
-    //               return d.children || d._children ? -13 : 13;
-    //           })
-    //           .attr("text-anchor", function(d) {
-    //               return d.children || d._children ? "end" : "start";
-    //           })
-    //           .text(function(d) { return "Paid: $"+d.data.out; })
-    //           .style("opacity", function(d){
-    //             return !d.depth ? 0 : 1;
-    //           });
-
     // UPDATE
     var nodeUpdate = nodeEnter.merge(node);
 
@@ -504,8 +477,6 @@ function treeVis(data) {
         if (d.depth === 1) {
           return aldScale(d.data.in)
         } else if (d.depth === 2) {
-          console.log("inner")
-          console.log(d)
           return lobScale(d.data.out)
         } else {return cliScale(d.data.out)}
       }) //d => d.in 'r', 8
@@ -594,10 +565,14 @@ function treeVis(data) {
     // On click toggle children, if alderman, remove other nodes
     function click(d) {
       if (d.depth === 1) {
-        if (d3.select(this).select(".alderman").classed("active") === false) {
+        if (d3.select(this).selectAll(".alderman").classed("active") === false) {
           d3.select(this).selectAll(".alderman").classed("active", true) //ed("active", true)
-
+          // console.log("on click")
+          // console.log(d3.select(this).selectAll(".alderman"))
+          // console.log(d3.selectAll(".alderman"))
+          
           d3.selectAll(".alderman")
+            //.classed("active", false)
             .transition()
             .attr("fill-opacity", 0.2)
             .attr("stroke-opacity", 0.1);
@@ -606,14 +581,26 @@ function treeVis(data) {
           .transition()
           .attr("fill-opacity", 1)
           .attr("stroke-opacity", 1);
+
         }
         else {
           d3.select(this).selectAll(".alderman").classed("active", false);
 
-          d3.selectAll(".alderman")
-            .transition()
-            .attr("fill-opacity", 1)
-            .attr("stroke-opacity", 1);
+          d3.select(this).selectAll(".alderman")
+              .transition()
+              .attr("fill-opacity", 0.2)
+              .attr("stroke-opacity", 0.1);
+
+
+          if (d3.selectAll(".active")._groups[0].length === 0) {
+            // console.log("click off")
+            // console.log(d3.selectAll(".active")._groups[0].length)
+
+            d3.selectAll(".alderman")
+              .transition()
+              .attr("fill-opacity", 1)
+              .attr("stroke-opacity", 1);
+          }
         }
       }
 
