@@ -102,48 +102,9 @@ function mapVis(data, tree_data) {
     });
   }
 
-  // var promise = getJSON('./data/alc2.json');
-  // promise.then(data => data.json())
-  //         .then(function(data) {
-  //       var allbusinesses = L.geoJson(data);
-  //       console.log(allbusinesses)
-  //     });
-            //     var cafes = L.geoJson(data, {
-            // filter: function(feature, layer) {
-            //     return feature.properties.BusType == "Cafe";
-            // },
-            // pointToLayer: function(feature, latlng) {
-            //     return L.marker(latlng, {
-            //         icon: cafeIcon
-            //     }).on('mouseover', function() {
-            //         this.bindPopup(feature.properties.Name).openPopup();
-            //     });
-            // }
-       
-  // Trying to mess with filtering
-  function filterTreeData(e, data, tree_data, layer) {
-    console.log(layer)
-    layer.on({
-
-    })
-    console.log(e.target.properties)
-    console.log("getting here")
-    // console.log(data.alderman)
-    // const name = data.alderman
-    // r = tree_data.filter(function(d, name) {
-    //   if (d.data.depth === 1) {
-    //     return d.data.name === name
-    //   }
-    // })
-    // return r; 
-  }
-
-
-
   geojson = L.geoJSON(data, {
       style: style,
-      onEachFeature: onEachFeature,
-      click: filterTreeData
+      onEachFeature: onEachFeature
   }).addTo(map);
   
   var info = L.control();
@@ -212,10 +173,11 @@ function treeVis(data) {
       .attr("class", "tooltip")  
       .style("opacity", 1);
 
+  // get all values of donations received by aldermen
   function getIn() {
     return data.children.map(d => d.in);
-    //return data.reduce((max, d) => parseInt(d.in, 10) > max ? d.in : max, d[0].in);
   }
+  // find max
   function getMax() {
     return Math.max(...getIn())
   }
@@ -224,10 +186,7 @@ function treeVis(data) {
   function getOut() {
     var vals = []
     for (child in data.children) {
-      //console.log(data.children[child])
       for (grandchild in data.children[child].children) 
-        //console.log(grandchild)
-        //console.log(data.children[child].children[grandchild])
         for (ggchild in data.children[child].children[grandchild].children)
           vals.push(data.children[child].children[grandchild].children[ggchild].out)
     return vals
@@ -237,7 +196,7 @@ function treeVis(data) {
 
   // set scales
   const aldScale = d3.scaleLinear().domain([0, getMax(data)]).range([2, 20]).nice();
-  const lobScale = d3.scaleLinear().domain([0, 2000]).range([2, 20]).nice();
+  const lobScale = d3.scaleLinear().domain([0, 1500]).range([2, 20]).nice();
   const cliScale = d3.scaleLinear().domain([0, Math.max(...getOut())]).range([2, 20]).nice();
   //console.log(cliScale(10000))
 
@@ -247,67 +206,217 @@ function treeVis(data) {
                        client:{stroke:"#F98400", fill:"#F2AD00"}
                       }
 
+  const aldStart = 30
+  const lobStart = 130
+  const cliStart = 230
+  const midInterval = 35
+  const endInterval = 55
+
   //Legend
+  //Aldermen
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -100)
+     .attr("y", aldStart - 25)
+     .attr("text-anchor", "right")
+     .style("font-size", "12px")
+     .text("Donations Received (Alderman)");
+
   svg.append("circle")
-     .attr('r', 10)
+     .attr('r', aldScale(getMax(data)))
      .attr("cx", -75)
-     .attr("cy", 20)
+     .attr("cy", aldStart)
      .style("stroke", colorLookup["alderman"]["stroke"])
      .style("fill", colorLookup["alderman"]["fill"]);
 
   svg.append("circle")
-     .attr('r', 10)
+     .attr('r', aldScale(getMax(data)/2))
      .attr("cx", -75)
-     .attr("cy", 45)
+     .attr("cy", aldStart + midInterval)
+     .style("stroke", colorLookup["alderman"]["stroke"])
+     .style("fill", colorLookup["alderman"]["fill"]);
+
+  svg.append("circle")
+     .attr('r', aldScale(0))
+     .attr("cx", -75)
+     .attr("cy", aldStart + endInterval)
+     .style("stroke", colorLookup["alderman"]["stroke"])
+     .style("fill", colorLookup["alderman"]["fill"]);
+
+  // Labels
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -50)
+     .attr("y", aldStart + 5)
+     .attr("text-anchor", "right")
+     .style("font-size", "10px")
+     .text("$" + getMax(data));
+
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -50)
+     .attr("y", aldStart + midInterval + 5)
+     .attr("text-anchor", "right")
+     .style("font-size", "10px")
+     .text("$" + getMax(data)/2);
+
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -50)
+     .attr("y", aldStart + endInterval + 5)
+     .attr("text-anchor", "right")
+     .style("font-size", "10px")
+     .text("$" + 0);
+
+  // Lobbyists
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -100)
+     .attr("y", lobStart - 25)
+     .attr("text-anchor", "right")
+     .style("font-size", "12px")
+     .text("Donations Given (Lobbyist)");
+
+  svg.append("circle")
+     .attr('r', lobScale(1500))
+     .attr("cx", -75)
+     .attr("cy", lobStart)
      .style("stroke", colorLookup["lobbyist"]["stroke"])
      .style("fill", colorLookup["lobbyist"]["fill"]);
 
   svg.append("circle")
-     .attr('r', 10)
+     .attr('r', lobScale(750))
      .attr("cx", -75)
-     .attr("cy", 70)
+     .attr("cy", lobStart + midInterval)
+     .style("stroke", colorLookup["lobbyist"]["stroke"])
+     .style("fill", colorLookup["lobbyist"]["fill"]);
+
+  svg.append("circle")
+     .attr('r', lobScale(0))
+     .attr("cx", -75)
+     .attr("cy", lobStart + endInterval)
+     .style("stroke", colorLookup["lobbyist"]["stroke"])
+     .style("fill", colorLookup["lobbyist"]["fill"]);
+
+  // Labels
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -50)
+     .attr("y", lobStart + 5)
+     .attr("text-anchor", "right")
+     .style("font-size", "10px")
+     .text("$" + 1500);
+
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -50)
+     .attr("y", lobStart + midInterval + 5)
+     .attr("text-anchor", "right")
+     .style("font-size", "10px")
+     .text("$" + 750);
+
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -50)
+     .attr("y", lobStart + endInterval + 5)
+     .attr("text-anchor", "right")
+     .style("font-size", "10px")
+     .text("$" + 0);
+
+  // Clients
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -100)
+     .attr("y", cliStart - 25)
+     .attr("text-anchor", "right")
+     .style("font-size", "12px")
+     .text("Compensation Paid (Client)");
+
+  svg.append("circle")
+     .attr('r', cliScale(Math.max(...getOut())))
+     .attr("cx", -75)
+     .attr("cy", cliStart)
      .style("stroke", colorLookup["client"]["stroke"])
      .style("fill", colorLookup["client"]["fill"]);
 
-  svg.append("rect")
-     .attr("height", 80)
-     .attr("width", 100)
-     .attr("x", -90)
-     .attr("y", 5)
-     .style("stroke", "black")
-     .style("fill-opacity", 0);
+  svg.append("circle")
+     .attr('r', cliScale(Math.max(...getOut())/2))
+     .attr("cx", -75)
+     .attr("cy", cliStart + midInterval)
+     .style("stroke", colorLookup["client"]["stroke"])
+     .style("fill", colorLookup["client"]["fill"]);
 
+  svg.append("circle")
+     .attr('r', cliScale(0))
+     .attr("cx", -75)
+     .attr("cy", cliStart + endInterval)
+     .style("stroke", colorLookup["client"]["stroke"])
+     .style("fill", colorLookup["client"]["fill"]);
+
+  // Labels
   svg.append("text")
      .attr("class", "text d3legend")
-     .attr("x", -85)
-     .attr("y", 0)
-     .attr("text-anchor", "right")
-     .style("font-size", "14px")
-     .text("Node Legend");
-
-  svg.append("text")
-     .attr("class", "text d3legend")
-     .attr("x", -60)
-     .attr("y", 22)
-     .attr("text-anchor", "right")
-     .style("font-size", "10px")
-     .text("Aldermen");
-
-  svg.append("text")
-     .attr("class", "text d3legend")
-     .attr("x", -60)
-     .attr("y", 47)
+     .attr("x", -50)
+     .attr("y", cliStart  )
      .attr("text-anchor", "right")
      .style("font-size", "10px")
-     .text("Lobbyists");
+     .text("$" + Math.max(...getOut()));
 
   svg.append("text")
      .attr("class", "text d3legend")
-     .attr("x", -60)
-     .attr("y", 72)
+     .attr("x", -50)
+     .attr("y", cliStart + midInterval)
      .attr("text-anchor", "right")
      .style("font-size", "10px")
-     .text("Clients");
+     .text("$" + Math.max(...getOut())/2);
+
+  svg.append("text")
+     .attr("class", "text d3legend")
+     .attr("x", -50)
+     .attr("y", cliStart + endInterval)
+     .attr("text-anchor", "right")
+     .style("font-size", "10px")
+     .text("$" + 0);
+
+  // svg.append("rect")
+  //    .attr("height", 80)
+  //    .attr("width", 100)
+  //    .attr("x", -90)
+  //    .attr("y", 5)
+  //    .style("stroke", "black")
+  //    .style("fill-opacity", 0);
+
+  // svg.append("text")
+  //    .attr("class", "text d3legend")
+  //    .attr("x", -85)
+  //    .attr("y", 0)
+  //    .attr("text-anchor", "right")
+  //    .style("font-size", "14px")
+  //    .text("Node Legend");
+
+  // svg.append("text")
+  //    .attr("class", "text d3legend")
+  //    .attr("x", -60)
+  //    .attr("y", 22)
+  //    .attr("text-anchor", "right")
+  //    .style("font-size", "10px")
+  //    .text("Aldermen");
+
+  // svg.append("text")
+  //    .attr("class", "text d3legend")
+  //    .attr("x", -60)
+  //    .attr("y", 47)
+  //    .attr("text-anchor", "right")
+  //    .style("font-size", "10px")
+  //    .text("Lobbyists");
+
+  // svg.append("text")
+  //    .attr("class", "text d3legend")
+  //    .attr("x", -60)
+  //    .attr("y", 72)
+  //    .attr("text-anchor", "right")
+  //    .style("font-size", "10px")
+  //    .text("Clients");
 
   // attribution
   svg.append("text")
