@@ -7,31 +7,9 @@ Promise.all([
   .catch(error => console.error(error))
   .then(data => myVis(data));
 
-
-// function data_input(string, callback) {
-//   fetch(string)
-//     .then(data => data.json())
-//     .catch(error => console.error(error))
-//     .then(data => {
-//       callback(data)
-//     })
-// }
-
-// document.addEventListener('DOMContentLoaded', () => {
-//   data_input('./data/ward_boundaries_update.geojson', mapVis)
-//   data_input('./data/alc2.json', function(data) {
-//     treeVis({children:data}) 
-//   })
-// });
-
-
 function myVis(data) {
   const [map_data, tree] = data
   const tree_data = {children:tree}
-  //console.log("here")
-  //console.log(map_data)
-  //console.log(tree_data)
-
   mapVis(map_data, tree_data)
   treeVis(tree_data)
 
@@ -115,12 +93,18 @@ function mapVis(data, tree_data) {
       return this._div;
   };
 
-  // method that we will use to update the control based on feature properties passed
+  // This formatting function found here:
+  //https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  // update jouseover
   info.update = function (data) {
       this._div.innerHTML = (data ?
           '<b>Ward: ' + data.ward + '</b><br/>' +
           '<b>Alderman: ' + data.alderman+ '</b><br/>'+
-          '<b>Lobbyists Contributions (2018): $' + data.total + '</b>'
+          '<b>Lobbyists Contributions (2018): $' + numberWithCommas(data.total) + '</b>'
           : 'Hover map to see ward information');
   };
 
@@ -221,19 +205,19 @@ function treeVis(data) {
   //Aldermen
   svg.append("text")
      .attr("class", "text d3legend")
-     .attr("x", -101)
+     .attr("x", -75)
      .attr("y", aldStart - 35)
      .attr("text-anchor", "right")
      .style("font-size", "12px")
-     .text("Donations Received");
+     .text("Alderman");
 
   svg.append("text")
      .attr("class", "text d3legend")
-     .attr("x", -75)
+     .attr("x", -101)
      .attr("y", aldStart - 23)
      .attr("text-anchor", "right")
      .style("font-size", "12px")
-     .text("(Alderman)");
+     .text("Donations Received");
 
   svg.append("circle")
      .attr('r', aldScale(getMax(data)))
@@ -284,19 +268,19 @@ function treeVis(data) {
   // Lobbyists
   svg.append("text")
      .attr("class", "text d3legend")
-     .attr("x", -90)
+     .attr("x", -75)
      .attr("y", lobStart - 35)
      .attr("text-anchor", "right")
      .style("font-size", "12px")
-     .text("Donations Given");
+     .text("Lobbyist");
 
   svg.append("text")
      .attr("class", "text d3legend")
-     .attr("x", -75)
+     .attr("x", -90)
      .attr("y", lobStart - 23)
      .attr("text-anchor", "right")
      .style("font-size", "12px")
-     .text("(Lobbyist)");
+     .text("Donations Given");
 
   svg.append("circle")
      .attr('r', lobScale(1500))
@@ -347,19 +331,19 @@ function treeVis(data) {
   // Clients
   svg.append("text")
      .attr("class", "text d3legend")
-     .attr("x", -100)
+     .attr("x", -68)
      .attr("y", cliStart - 35)
      .attr("text-anchor", "right")
      .style("font-size", "12px")
-     .text("Compensation Paid");
+     .text("Client");
 
   svg.append("text")
      .attr("class", "text d3legend")
-     .attr("x", -68)
+     .attr("x", -100)
      .attr("y", cliStart - 23)
      .attr("text-anchor", "right")
      .style("font-size", "12px")
-     .text("(Client)");
+     .text("Compensation Paid");
 
   svg.append("circle")
      .attr('r', cliScale(Math.max(...getOut())))
@@ -414,25 +398,14 @@ function treeVis(data) {
      .attr("y", -20)
      .style("stroke", "black")
      .style("fill-opacity", 0);
-
-  // attribution
-  svg.append("text")
-      .attr("class", "text")
-      .attr("x", -85)             
-      .attr("y", height - 50)
-      .attr("text-anchor", "start")
-      .style("font-size", "12px")
-      .text("Source: City of Chicago Lobbying Data, Compensation and Contributions");
-
+  // click
   svg.append("text")
       .attr("class", "text")
       .attr("x", 15 )             
       .attr("y", -15)
       .attr("text-anchor", "start")
       .style("font-size", "12px")
-      .text("Click on an alderman to explore!");
-
-  
+      .text("Click on an alderman to explore!");  
   
   // Set transition duration
   var i = 0,
@@ -472,7 +445,7 @@ function treeVis(data) {
     // Normalize for fixed-depth
     nodes.forEach(function(d){ d.y = d.depth * 180});
 
-    // ****************** Nodes ***************************
+    // Nodes 
 
     // Update the nodes
     var node = svg.selectAll('g.node')
@@ -489,11 +462,11 @@ function treeVis(data) {
           infodiv.transition().duration(200).style("opacity", 0.9);
           infodiv.html(function(data) { 
               if (d.depth === 1) {
-                return "Alderman: " + d.data.name + "<br>Donations from Lobbyists: $" + numberWithCommas(d.data.in)
+                return "Alderman: " + d.data.name + "<br>Donations from Lobbyists (2018): $" + numberWithCommas(d.data.in)
               } else if (d.depth === 2) {
-                return "Lobbyist: " + d.data.name + "<br>Payments from Clients: $" + numberWithCommas(d.data.in) + "<br>Donation to " + d.parent.data.name + ": $" + numberWithCommas(d.data.out)
+                return "Lobbyist: " + d.data.name + "<br>Payments from Clients (2018): $" + numberWithCommas(d.data.in) + "<br>Donation to " + d.parent.data.name + " (2018): $" + numberWithCommas(d.data.out)
               } else {
-                return "Client : " + d.data.name + "<br>Payments to " + d.parent.data.name + ": $" + numberWithCommas(d.data.out)
+                return "Client : " + d.data.name + "<br>Payments to " + d.parent.data.name + " (2018): $" + numberWithCommas(d.data.out)
               }
             });
       })
@@ -543,7 +516,6 @@ function treeVis(data) {
         });
 
     // Add labels for the nodes
-    // Add updates here for the $ amounts coming in, out
     nodeEnter.append('text')
               .attr('class', function(d) {
                     if (d.depth === 1) {
@@ -585,7 +557,7 @@ function treeVis(data) {
         } else if (d.depth === 2) {
           return lobScale(d.data.out)
         } else {return cliScale(d.data.out)}
-      }) //d => d.in 'r', 8
+      }) 
       .style("fill", function(d) {
           if (d.depth === 1) {
             return "#6EB643"
@@ -606,11 +578,11 @@ function treeVis(data) {
         })
         .remove();
 
-    // On exit reduce the node circles size to 0
+    // Reduce node circle size to 0
     nodeExit.select('circle')
       .attr('r', 0);
 
-    // On exit reduce the opacity of text labels
+    // Reduce opacity of labels
     nodeExit.select('text')
       .style('fill-opacity', 0);
 
@@ -668,17 +640,13 @@ function treeVis(data) {
       return path
     }
 
-    // On click toggle children, if alderman, remove other nodes
+    // On click toggle children, if alderman, highlight
     function click(d) {
       if (d.depth === 1) {
         if (d3.select(this).selectAll(".alderman").classed("active") === false) {
           d3.select(this).selectAll(".alderman").classed("active", true) //ed("active", true)
-          // console.log("on click")
-          // console.log(d3.select(this).selectAll(".alderman"))
-          // console.log(d3.selectAll(".alderman"))
           
           d3.selectAll(".alderman")
-            //.classed("active", false)
             .transition()
             .attr("fill-opacity", 0.2)
             .attr("stroke-opacity", 0.1);
@@ -699,8 +667,6 @@ function treeVis(data) {
 
 
           if (d3.selectAll(".active")._groups[0].length === 0) {
-            // console.log("click off")
-            // console.log(d3.selectAll(".active")._groups[0].length)
 
             d3.selectAll(".alderman")
               .transition()

@@ -54,11 +54,9 @@ with open('data/alc.csv') as f:
         else:
             ald["children"].append(lob)
             if name == old_name:
-                #print(ald)
                 ald["in"] += contrib                
             else:
                 results.append(ald)
-                #print(results)
                 ald = {}
                 ald["name"] = name
                 ald["out"] = None
